@@ -1,0 +1,104 @@
+<app-page-header
+  eyebrow="Nosotras · La comunidad"
+  title="Una liga hecha por y para todas"
+  note="hecha con cariño y tacos"
+  subtitle="Nacimos con una idea sencilla: que cualquier mujer pueda jugar fútbol en un espacio donde se sienta segura, respetada y en casa."
+/>
+
+<!-- HISTORIA -->
+<section class="section" aria-labelledby="historia">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Nuestra historia</p>
+      <h2 id="historia">De una reta de domingo a una liga entera</h2>
+      <p>
+        Todo empezó con un grupo de amigas que buscaba dónde jugar sin sentirse juzgadas. Pronto llegaron más
+        equipos, más jugadoras y más historias. Hoy somos una liga con jornadas cada domingo, tabla de posiciones
+        y, sobre todo, una comunidad que se cuida.
+      </p>
+      <p class="muted">
+        [Texto provisional: aquí va la historia real de la liga, año de fundación y personas fundadoras.]
+      </p>
+    </div>
+    <app-media-placeholder ratio="4 / 3" tone="gold" caption="Foto de la primera jornada" label="Foto histórica de la liga" />
+  </div>
+</section>
+
+<!-- MISIÓN / VISIÓN -->
+<section class="section section-dark" aria-label="Misión y visión">
+  <div class="container grid-2">
+    <article class="mv">
+      <p class="eyebrow">Misión</p>
+      <h2>Abrir la cancha</h2>
+      <p>Crear un espacio deportivo seguro, diverso e incluyente donde las mujeres jueguen, compitan y construyan comunidad a través del fútbol.</p>
+    </article>
+    <article class="mv">
+      <p class="eyebrow">Visión</p>
+      <h2>Ser referente en México</h2>
+      <p>Ser la liga de fútbol femenil y diversa de referencia en México, reconocida por su organización, su ambiente y su impacto social.</p>
+    </article>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="section" aria-label="Valores">
+  <div class="container">
+    <app-section-title eyebrow="Valores" title="Lo que defendemos" [center]="true" />
+    <div class="grid-4">
+      @for (v of values; track v.title) {
+        <article class="card value">
+          <span class="value-icon" aria-hidden="true"><app-icon [name]="v.icon" [size]="24" /></span>
+          <h3>{{ v.title }}</h3>
+          <p class="muted">{{ v.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ESPACIO SEGURO + CÓDIGO -->
+<section class="section section-cream" aria-label="Espacio seguro y código de convivencia">
+  <div class="container grid-2 align-start">
+    <article class="card safe">
+      <span class="safe-icon" aria-hidden="true"><app-icon name="shield" [size]="32" /></span>
+      <h2>¿Por qué es un espacio seguro?</h2>
+      <ul class="checklist">
+        @for (item of safeSpace; track item) {
+          <li><app-icon name="check-circle" [size]="22" /><span>{{ item }}</span></li>
+        }
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Código de convivencia</h2>
+      <p class="muted">Todas las jugadoras lo aceptan al registrarse.</p>
+      <ol class="code">
+        @for (rule of code; track rule; let i = $index) {
+          <li><span class="code-n" aria-hidden="true">{{ i + 1 }}</span><span>{{ rule }}</span></li>
+        }
+      </ol>
+      <a href="#" class="btn btn-outline btn-sm"><app-icon name="download" [size]="18" /> Descargar reglamento (PDF)</a>
+    </article>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section" aria-label="Cómo funciona">
+  <div class="container">
+    <app-section-title eyebrow="Cómo funciona" title="Así se vive la liga" [center]="true" />
+    <ol class="steps">
+      @for (s of steps; track s.title; let i = $index) {
+        <li class="step">
+          <span class="step-n" aria-hidden="true">0{{ i + 1 }}</span>
+          <span class="step-icon" aria-hidden="true"><app-icon [name]="s.icon" [size]="28" /></span>
+          <h3>{{ s.title }}</h3>
+          <p class="muted">{{ s.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<div class="section-cream">
+  <app-cta-band />
+</div>

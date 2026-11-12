@@ -1,0 +1,73 @@
+<app-page-header
+  eyebrow="Únete · paso 1 de 2"
+  title="Crea tu cuenta"
+  note="no importa tu nivel"
+  subtitle="Una cuenta por persona. Tus datos los llenas tú y tú decides qué se ve en el sitio."
+>
+  <app-stepper class="stepper" [steps]="['Tu cuenta', 'Tu equipo']" [current]="0" />
+</app-page-header>
+
+<section class="section" aria-label="Crear cuenta">
+  <div class="container layout">
+    <form class="form" (submit)="$event.preventDefault()" novalidate>
+      <!-- Acceso -->
+      <fieldset class="fieldset">
+        <legend>Cómo vas a entrar</legend>
+        <p class="small muted intro">Sin contraseñas: cada vez que entres te mandamos un código de 6 dígitos.</p>
+        <div class="segmented channel" role="radiogroup" aria-label="Recibir códigos por">
+          <label><input type="radio" name="canal" checked /><span><app-icon name="whatsapp" [size]="16" /> WhatsApp</span></label>
+          <label><input type="radio" name="canal" /><span><app-icon name="mail" [size]="16" /> Correo</span></label>
+        </div>
+        <div class="field">
+          <label class="label" for="acceso">Tu WhatsApp <span class="req">*</span></label>
+          <input class="input" id="acceso" type="tel" inputmode="tel" autocomplete="tel" placeholder="55 1234 5678" />
+        </div>
+      </fieldset>
+
+      <!-- Datos de jugadora -->
+      <app-player-fields [index]="1" mode="self" />
+
+      <!-- Privacidad -->
+      <fieldset class="fieldset privacy">
+        <legend>Tu privacidad</legend>
+        <p class="small muted intro">Lo puedes cambiar cuando quieras desde <b>Mi cuenta</b>. Nadie más puede cambiarlo por ti, ni tu capitana.</p>
+        <app-toggle-row icon="user" title="Mostrar mi nombre" description="Si lo apagas, en el sitio solo aparece tu número y posición." [checked]="true" />
+        <app-toggle-row icon="image" title="Mostrar mi foto en mi perfil" description="Tu foto de perfil en la página del equipo." [checked]="false" />
+        <app-toggle-row icon="instagram" title="Autorizo uso de mi imagen" description="Fotos y videos de las jornadas en redes y en el sitio." [checked]="false" />
+      </fieldset>
+
+      <!-- Obligatorios -->
+      <fieldset class="fieldset">
+        <legend>Para terminar</legend>
+        <label class="check">
+          <input type="checkbox" />
+          <span>He leído y acepto el <a routerLink="/aviso-de-privacidad" target="_blank">Aviso de privacidad</a>. <span class="req">*</span></span>
+        </label>
+        <label class="check">
+          <input type="checkbox" />
+          <span>Acepto el código de convivencia de la liga. <span class="req">*</span></span>
+        </label>
+      </fieldset>
+
+      <div class="submit">
+        <a routerLink="/unete/equipo" class="btn btn-pink btn-lg">Crear mi cuenta <app-icon name="arrow-right" /></a>
+        <p class="small muted">¿Ya tienes cuenta? <a routerLink="/entrar">Entra aquí</a></p>
+      </div>
+    </form>
+
+    <aside class="side" aria-label="Qué puedes hacer con tu cuenta">
+      <div class="side-card">
+        <p class="side-kicker">Con tu cuenta puedes…</p>
+        <ul>
+          <li><b>Todas:</b> ver tus estadísticas y decidir qué se publica de ti.</li>
+          <li><b>Capitanas:</b> además, ver y administrar a su equipo.</li>
+          <li><b>Staff:</b> lo asigna la liga, no se elige aquí.</li>
+        </ul>
+        <p class="lock">
+          <app-icon name="lock" [size]="18" />
+          Tu teléfono y tu contacto de emergencia solo los ve el staff. Nunca se publican.
+        </p>
+      </div>
+    </aside>
+  </div>
+</section>

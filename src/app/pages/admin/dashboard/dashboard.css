@@ -1,0 +1,132 @@
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+@media (min-width: 1200px) {
+  .kpis {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-main {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 1100px) {
+  .grid-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.h {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: var(--text-xl);
+}
+
+.list,
+.rank {
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+.list li,
+.rank li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 56px;
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.list li:last-child,
+.rank li:last-child {
+  border-bottom: 0;
+}
+
+.t {
+  font-weight: 700;
+}
+.who {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.time {
+  width: 52px;
+  font-size: var(--text-lg);
+}
+.vs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  font-family: var(--font-condensed);
+}
+.field {
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .field {
+    display: none;
+  }
+}
+
+.pos {
+  width: 24px;
+  color: var(--color-ink-muted);
+}
+.bar {
+  flex: 0 0 30%;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--navy-50);
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+}
+.val {
+  width: 28px;
+  text-align: right;
+  font-size: var(--text-xl);
+}
+
+.cards {
+  display: flex;
+  gap: 6px;
+}
+.ycard,
+.rcard {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 32px;
+  border-radius: 4px;
+  font-family: var(--font-condensed);
+  font-weight: 700;
+}
+.ycard {
+  background: var(--card-yellow);
+  color: var(--navy-950);
+}
+.rcard {
+  background: var(--card-red);
+  color: #fff;
+}
+.cards-row.warn {
+  background: linear-gradient(90deg, var(--color-warning-bg), transparent 80%);
+}

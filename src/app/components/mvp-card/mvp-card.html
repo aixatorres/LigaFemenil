@@ -1,0 +1,33 @@
+<article class="poster">
+  <span class="tape tape-top" aria-hidden="true"></span>
+
+  <div class="visual" aria-hidden="true">
+    <span class="dorsal">{{ player().number }}</span>
+    <span class="stamp seal">
+      <span>
+        <span class="seal-big">MVP</span>
+        <span class="seal-small">Jornada {{ jornada() }}</span>
+      </span>
+    </span>
+  </div>
+
+  <div class="content">
+    <p class="kicker">La jugadora de la jornada {{ jornada() }}</p>
+    <h3 class="name">{{ player().name }}</h3>
+    <p class="team">
+      <app-team-crest [team]="team()" [size]="30" />
+      {{ team().name }} · {{ player().position }}
+    </p>
+    @if (reason()) {
+      <p class="reason marker">“{{ reason() }}”</p>
+    }
+    <dl class="stats">
+      <div><dt>Goles</dt><dd>{{ player().stats.goles }}</dd></div>
+      <div><dt>Partidos</dt><dd>{{ player().stats.partidos }}</dd></div>
+      <div><dt>Minutos</dt><dd>{{ player().stats.minutos }}</dd></div>
+    </dl>
+    <a class="btn btn-gold btn-sm link" [routerLink]="['/jugadoras', player().id]">
+      Ver su perfil <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+</article>

@@ -1,0 +1,120 @@
+<app-page-header
+  eyebrow="Patrocinadores"
+  title="Patrocina una causa que se juega cada domingo"
+  note="ponte la camiseta"
+  subtitle="Apoyar a la liga es apoyar el deporte femenil, la diversidad y los espacios seguros en México."
+>
+  <div class="header-ctas">
+    <a [routerLink]="[]" fragment="form-patrocinio" class="btn btn-gold btn-lg">Quiero patrocinar <app-icon name="arrow-right" /></a>
+  </div>
+</app-page-header>
+
+<!-- MISIÓN SOCIAL -->
+<section class="section" aria-labelledby="mision">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Misión social</p>
+      <h2 id="mision">Más que un logo en una lona</h2>
+      <p>
+        Tu marca se suma a una comunidad que abre la cancha para mujeres de todas las identidades, edades y niveles.
+        Cada peso se traduce en arbitraje, balones, uniformes, becas para jugadoras y convivencias.
+      </p>
+      <ul class="impact">
+        <li><app-icon name="heart" [size]="20" /> Becas de inscripción para jugadoras que lo necesitan</li>
+        <li><app-icon name="shield" [size]="20" /> Un espacio deportivo libre de discriminación</li>
+        <li><app-icon name="users" [size]="20" /> Visibilidad para el fútbol femenil y diverso</li>
+      </ul>
+    </div>
+
+    <div class="reach" role="list" aria-label="Alcance de la liga">
+      @for (r of reach; track r.label) {
+        <div class="reach-item" role="listitem">
+          <app-icon [name]="r.icon" [size]="24" />
+          <span class="reach-value">{{ r.value }}</span>
+          <span class="reach-label">{{ r.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section class="section section-cream" aria-label="Paquetes de patrocinio">
+  <div class="container">
+    <app-section-title eyebrow="Paquetes" title="Elige cómo sumarte" subtitle="Todos los paquetes son personalizables." [center]="true" />
+    <div class="grid-3">
+      @for (p of packages; track p.name) {
+        <article class="card pkg" [class.featured]="p.featured">
+          @if (p.featured) {
+            <span class="badge badge-gold ribbon">Recomendado</span>
+          }
+          <h3 class="pkg-name">{{ p.name }}</h3>
+          <p class="pkg-price">{{ p.price }}</p>
+          <ul>
+            @for (it of p.items; track it) {
+              <li><app-icon name="check" [size]="18" /> {{ it }}</li>
+            }
+          </ul>
+          <a [routerLink]="[]" fragment="form-patrocinio" class="btn btn-block" [class.btn-gold]="p.featured" [class.btn-outline]="!p.featured"
+            >Me interesa</a
+          >
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ALIADAS ACTUALES -->
+<section class="section" aria-label="Aliadas actuales">
+  <div class="container">
+    <app-section-title eyebrow="Ellas ya se sumaron" title="Nuestras aliadas" [center]="true" />
+    <app-sponsor-strip [sponsors]="sponsors" />
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section id="form-patrocinio" class="section section-dark" aria-labelledby="form-title">
+  <div class="container form-wrap">
+    <div>
+      <p class="eyebrow">Hablemos</p>
+      <h2 id="form-title">Cuéntanos de tu marca</h2>
+      <p class="lead">Te enviamos el media kit completo y armamos una propuesta a tu medida.</p>
+      <a href="#" class="btn btn-outline-light"><app-icon name="download" [size]="18" /> Descargar media kit (PDF)</a>
+    </div>
+
+    <form class="card form" (submit)="$event.preventDefault()">
+      <div class="form-grid">
+        <div class="field">
+          <label class="label" for="p-nombre">Nombre</label>
+          <input class="input" id="p-nombre" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label class="label" for="p-empresa">Empresa o marca</label>
+          <input class="input" id="p-empresa" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label class="label" for="p-email">Correo</label>
+          <input class="input" id="p-email" type="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="label" for="p-tel">Teléfono</label>
+          <input class="input" id="p-tel" type="tel" inputmode="tel" autocomplete="tel" />
+        </div>
+        <div class="field span-2">
+          <label class="label" for="p-paquete">Paquete de interés</label>
+          <select class="select" id="p-paquete">
+            <option>Aún no lo sé</option>
+            @for (p of packages; track p.name) {
+              <option>{{ p.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="field span-2">
+          <label class="label" for="p-msg">Mensaje</label>
+          <textarea class="textarea" id="p-msg"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">Enviar solicitud</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<header class="navbar" [class.is-open]="open()">
+  <!-- Franja de "próxima jornada", como encabezado de boleto -->
+  <div class="matchday">
+    <div class="container matchday-inner">
+      <span class="md-tag">Próx. jornada</span>
+      <span class="md-text">J7 · Dom 16 nov · 09:00 · Cancha 1</span>
+      <a routerLink="/jornadas" class="md-link">Ver rol <app-icon name="arrow-right" [size]="14" /></a>
+    </div>
+  </div>
+
+  <div class="container bar">
+    <a routerLink="/" class="brand" (click)="close()">
+      <img src="images/logo.png" alt="" width="60" height="60" />
+      <span class="brand-text">
+        <span class="brand-top">Mujeres Diversas</span>
+        <span class="brand-bottom">Liga de fútbol MX</span>
+      </span>
+      <span class="sr-only">Ir al inicio</span>
+    </a>
+
+    <nav class="links-desktop" aria-label="Principal">
+      <ul>
+        @for (link of links; track link.path) {
+          <li>
+            <a [routerLink]="link.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{
+              link.label
+            }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a routerLink="/entrar" class="team-link"><app-icon name="user" [size]="18" /> Entrar</a>
+      <a routerLink="/unete" class="btn btn-pink btn-sm cta">Quiero jugar</a>
+      <button
+        type="button"
+        class="menu-btn"
+        (click)="toggle()"
+        [attr.aria-expanded]="open()"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="open() ? 'Cerrar menú' : 'Abrir menú'"
+      >
+        <app-icon [name]="open() ? 'x' : 'menu'" [size]="26" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" class="mobile" aria-label="Principal móvil" [attr.hidden]="open() ? null : ''">
+    <ul class="container">
+      <li><a routerLink="/" (click)="close()"><span class="idx">00</span>Inicio</a></li>
+      @for (link of links; track link.path; let i = $index) {
+        <li>
+          <a [routerLink]="link.path" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="close()"
+            ><span class="idx">0{{ i + 1 }}</span>{{ link.label }}</a
+          >
+        </li>
+      }
+      <li class="mobile-cta">
+        <a routerLink="/unete" class="btn btn-pink btn-lg btn-block" (click)="close()">Quiero jugar</a>
+        <a routerLink="/patrocinadores" class="btn btn-gold btn-lg btn-block" (click)="close()">Quiero patrocinar</a>
+        <a routerLink="/entrar" class="btn btn-outline btn-lg btn-block" (click)="close()">Entrar a mi cuenta</a>
+        <p class="marker note">nos vemos el domingo</p>
+      </li>
+    </ul>
+  </nav>
+</header>
+<app-rainbow-stripe [height]="5" />

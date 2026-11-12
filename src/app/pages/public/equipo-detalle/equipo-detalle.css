@@ -1,0 +1,131 @@
+.team-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-6) var(--space-7);
+  background: var(--team-color);
+  color: #fff;
+  border-bottom: 3px solid var(--ink);
+}
+.team-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 40%;
+  color: rgb(0 0 0 / 0.3);
+  background: var(--halftone);
+  -webkit-mask: linear-gradient(100deg, transparent, #000 70%);
+  mask: linear-gradient(100deg, transparent, #000 70%);
+}
+.team-hero > .container {
+  position: relative;
+}
+.team-hero h1 {
+  text-shadow: 4px 4px 0 var(--ink);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  margin-bottom: var(--space-4);
+  color: rgb(255 255 255 / 0.85);
+  font-weight: 600;
+  text-decoration: none;
+}
+.back:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.flip {
+  transform: rotate(180deg);
+}
+
+.identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+}
+.identity h1 {
+  margin: 0;
+}
+.eyebrow {
+  color: var(--paper-light);
+}
+.sub {
+  margin: var(--space-2) 0 0;
+  color: rgb(255 255 255 / 0.8);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin: 0;
+}
+@media (min-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .stats {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+.stat dt {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+.stat dd {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+.stat:first-child {
+  background: var(--navy-900);
+  color: #fff;
+  border-color: var(--navy-900);
+}
+.stat:first-child dt {
+  color: var(--paper-light);
+}
+
+.head {
+  margin-bottom: var(--space-5);
+}
+.head h2 {
+  margin: 0;
+}
+.privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.players {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+@media (min-width: 768px) {
+  .players {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .players {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

@@ -1,0 +1,19 @@
+<header class="poster">
+  <div class="dots" aria-hidden="true"></div>
+  <img class="crest" src="images/logo.png" alt="" width="320" height="320" aria-hidden="true" />
+
+  <div class="container inner">
+    @if (eyebrow()) {
+      <p class="eyebrow">{{ eyebrow() }}</p>
+    }
+    <h1>{{ title() }}</h1>
+    @if (note()) {
+      <p class="marker note">{{ note() }}</p>
+    }
+    @if (subtitle()) {
+      <p class="lead">{{ subtitle() }}</p>
+    }
+    <ng-content />
+  </div>
+</header>
+<app-rainbow-stripe [height]="14" [tilt]="-1.2" class="tape" />

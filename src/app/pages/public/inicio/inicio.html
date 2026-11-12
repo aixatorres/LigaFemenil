@@ -1,0 +1,160 @@
+<!-- ===================== HERO: cartel de domingo ===================== -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="copy">
+      <p class="eyebrow">Liga de fútbol femenil y diversa · México</p>
+
+      <h1 id="hero-title" class="headline">
+        <span class="h-big">Más que</span>
+        <span class="h-big">fútbol,</span>
+        <span class="h-marker marker">somos una comunidad</span>
+      </h1>
+
+      <p class="lead">
+        Cada domingo nos juntamos a jugar, a echarnos porras y a cuidarnos entre todas.
+        Llega con tu equipo o llega sola: aquí hay lugar para ti.
+      </p>
+
+      <div class="ctas">
+        <a routerLink="/unete" class="btn btn-pink btn-lg">Quiero jugar <app-icon name="arrow-right" /></a>
+        <a routerLink="/patrocinadores" class="btn btn-outline btn-lg">Quiero patrocinar</a>
+        <span class="aside" aria-hidden="true">
+          <app-scribble-arrow [size]="78" [rotate]="190" />
+          <span class="marker">¡aquí cabes!</span>
+        </span>
+      </div>
+
+      <dl class="tally">
+        <div><dt>jugadoras</dt><dd>{{ stats.jugadoras }}+</dd></div>
+        <div><dt>equipos</dt><dd>{{ stats.equipos }}</dd></div>
+        <div><dt>en redes</dt><dd>{{ stats.seguidores }}</dd></div>
+      </dl>
+    </div>
+
+    <div class="art" aria-hidden="true">
+      <div class="sun"></div>
+      <img
+        class="sticker"
+        src="images/logo.png"
+        alt=""
+        width="460"
+        height="460"
+        fetchpriority="high"
+      />
+      <span class="tape t1"></span>
+      <span class="tape t2"></span>
+
+      <!-- Boleto de la próxima jornada -->
+      <div class="ticket">
+        <div class="ticket-main">
+          <span class="t-kicker">Boleto · admisión libre</span>
+          <span class="t-title">Jornada 7</span>
+          <span class="t-meta">Dom 16 nov · 09:00 · Cancha 1</span>
+        </div>
+        <div class="ticket-stub">
+          <span>Nº</span>
+          <span class="t-num">007</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-marquee [items]="ticker" [tilt]="-1.2" />
+
+<!-- ===================== REGLAS DE LA CANCHA (valores) ===================== -->
+<section class="section rules-section" aria-label="Nuestros valores">
+  <div class="container rules-layout">
+    <div class="rules-intro">
+      <app-section-title index="01" eyebrow="Lo que nos mueve" title="Reglas de la cancha" />
+      <p class="statement">
+        Aquí se juega <span class="highlight hl-gold">fuerte</span>
+        y se cuida <span class="highlight">más</span>.
+      </p>
+      <a routerLink="/nosotras" class="btn btn-ghost">Conoce la comunidad <app-icon name="arrow-right" [size]="18" /></a>
+    </div>
+
+    <ol class="rules">
+      @for (r of rules; track r.title; let i = $index) {
+        <li class="rule">
+          <span class="rule-n" aria-hidden="true">0{{ i + 1 }}</span>
+          <div>
+            <h3 class="rule-title">{{ r.title }}</h3>
+            <p>{{ r.text }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== LO MEJOR DEL DOMINGO ===================== -->
+<section class="section section-cream" aria-label="Lo mejor de la jornada">
+  <div class="container">
+    <app-section-title index="02" eyebrow="Jornada 6 · 9 de noviembre" title="Lo mejor del domingo" note="¡qué partidazo!" />
+
+    <div class="highlights">
+      <app-mvp-card
+        [player]="mvp"
+        [jornada]="6"
+        reason="Doblete y asistencia en el 3-1 ante Tormenta Violeta."
+      />
+
+      <article class="reel">
+        <span class="tape reel-tape" aria-hidden="true"></span>
+        <div class="phone">
+          <app-media-placeholder
+            kind="video"
+            ratio="9 / 14"
+            tone="gold"
+            caption="Resumen · J6"
+            label="Video de Instagram: resumen de la jornada 6"
+          />
+        </div>
+        <div class="reel-foot">
+          <p class="reel-title">El reel del domingo</p>
+          <a href="#" class="btn btn-sm btn-outline">
+            <app-icon name="instagram" [size]="18" /> Verlo en Instagram
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EL ROL ===================== -->
+<section class="section section-dark rol" aria-label="Próximos partidos y tabla">
+  <div class="container rol-grid">
+    <div>
+      <app-section-title index="03" eyebrow="Domingo 16 de noviembre" title="El rol del domingo" note="llega temprano" />
+      <div class="tickets">
+        @for (m of upcoming; track m.id) {
+          <app-match-card [match]="m" [dark]="true" />
+        }
+      </div>
+      <a routerLink="/jornadas" class="btn btn-gold more">Calendario completo <app-icon name="arrow-right" /></a>
+    </div>
+
+    <aside class="tabla" aria-label="Tabla de posiciones, top 5">
+      <div class="tabla-head">
+        <p class="eyebrow">Torneo Otoño 2026</p>
+        <h2 class="tabla-title">La tabla</h2>
+      </div>
+      <app-standings-table [teams]="top" [compact]="true" caption="Top 5 de la tabla de posiciones" />
+      <a routerLink="/jornadas" fragment="tabla" class="btn btn-ghost more">Tabla completa <app-icon name="arrow-right" /></a>
+    </aside>
+  </div>
+</section>
+
+<!-- ===================== CARTELES: JUGAR / PATROCINAR ===================== -->
+<app-cta-band />
+
+<!-- ===================== ALIADAS ===================== -->
+<section class="section-tight section-cream aliadas" aria-labelledby="aliados-title">
+  <div class="container">
+    <h2 id="aliados-title" class="aliados-title">
+      <span class="marker">Gracias,</span> aliadas
+    </h2>
+    <app-sponsor-strip [sponsors]="sponsors" />
+  </div>
+</section>

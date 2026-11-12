@@ -1,0 +1,96 @@
+<a class="skip-link" [routerLink]="[]" fragment="admin-contenido">Saltar al contenido</a>
+
+<div class="shell" [class.drawer-open]="drawerOpen()">
+  <aside class="sidebar" id="admin-nav" aria-label="Panel de administración">
+    <a routerLink="/admin" class="brand" (click)="closeDrawer()">
+      <img src="images/logo.png" alt="" width="44" height="44" />
+      <span>
+        <span class="brand-title">Panel de la liga</span>
+        <span class="brand-sub">Mujeres Diversas MX</span>
+      </span>
+    </a>
+
+    <nav>
+      <ul>
+        @for (link of links; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: link.path === '/admin' }"
+              ariaCurrentWhenActive="page"
+              (click)="closeDrawer()"
+            >
+              <app-icon [name]="link.icon" [size]="20" />
+              <span>{{ link.label }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="sidebar-foot">
+      <a routerLink="/" class="foot-link"><app-icon name="external" [size]="18" /> Ver sitio público</a>
+      <a routerLink="/mi-cuenta" class="foot-link"><app-icon name="user" [size]="18" /> Mi cuenta</a>
+      <a routerLink="/entrar" class="foot-link"><app-icon name="log-out" [size]="18" /> Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <button
+    type="button"
+    class="scrim"
+    aria-label="Cerrar menú"
+    tabindex="-1"
+    (click)="closeDrawer()"
+  ></button>
+
+  <div class="main">
+    <header class="topbar">
+      <button
+        type="button"
+        class="icon-btn menu"
+        (click)="toggleDrawer()"
+        [attr.aria-expanded]="drawerOpen()"
+        aria-controls="admin-nav"
+        aria-label="Abrir menú"
+      >
+        <app-icon name="menu" [size]="24" />
+      </button>
+
+      <p class="season">
+        <span class="badge badge-gold">Torneo Otoño 2026</span>
+        <span class="season-j">Jornada 7 · Dom 16 nov</span>
+      </p>
+
+      <div class="user">
+        <span class="avatar" aria-hidden="true">AG</span>
+        <span class="user-text">
+          <span class="user-name">Admin general</span>
+          <span class="user-role">Rol: administradora</span>
+        </span>
+      </div>
+    </header>
+
+    <main id="admin-contenido" class="content" tabindex="-1">
+      <router-outlet />
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Accesos rápidos">
+    @for (link of bottomLinks; track link.path) {
+      <a
+        [routerLink]="link.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: link.path === '/admin' }"
+        ariaCurrentWhenActive="page"
+      >
+        <app-icon [name]="link.icon" [size]="22" />
+        <span>{{ link.short }}</span>
+      </a>
+    }
+    <button type="button" (click)="toggleDrawer()" [attr.aria-expanded]="drawerOpen()" aria-controls="admin-nav">
+      <app-icon name="more" [size]="22" />
+      <span>Más</span>
+    </button>
+  </nav>
+</div>

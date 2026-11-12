@@ -1,0 +1,87 @@
+<app-page-header
+  eyebrow="Únete · crear equipo"
+  title="Crea tu equipo"
+  note="dos minutos, prometido"
+  subtitle="Tú das de alta al equipo y te vuelves su capitana. Tus jugadoras se unen solas con el código que te vamos a dar."
+>
+  <app-stepper class="stepper" [steps]="['Tu cuenta', 'Tu equipo']" [current]="1" />
+</app-page-header>
+
+<section class="section" aria-label="Formulario de registro de equipo">
+  <div class="container layout">
+    <form class="form" (submit)="$event.preventDefault()" novalidate>
+      <p class="small muted">Los campos con <span class="req">*</span> son obligatorios.</p>
+
+      <!-- Equipo -->
+      <fieldset class="fieldset">
+        <legend>El equipo</legend>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label class="label" for="equipo-nombre">Nombre del equipo <span class="req">*</span></label>
+            <input class="input" id="equipo-nombre" type="text" placeholder="Ej. Jaguares Arcoíris" />
+          </div>
+
+          <div class="field span-2">
+            <span class="label" id="color-label">Color principal del uniforme</span>
+            <div class="swatches" role="radiogroup" aria-labelledby="color-label">
+              @for (c of swatches; track c; let first = $first) {
+                <label class="swatch" [style.--c]="c">
+                  <input type="radio" name="color" [value]="c" [checked]="first" />
+                  <span class="sr-only">{{ c }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="nivel">Nivel del equipo</label>
+            <select class="select" id="nivel">
+              <option>Recreativo · venimos a divertirnos</option>
+              <option>Intermedio · ya jugamos juntas</option>
+              <option>Competitivo · venimos por la copa</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="label" for="logo-equipo">Escudo del equipo (opcional)</label>
+            <input class="input file" id="logo-equipo" type="file" accept="image/*" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Compromiso del equipo -->
+      <fieldset class="fieldset">
+        <legend>Compromiso del equipo</legend>
+        <label class="check">
+          <input type="checkbox" />
+          <span>Acepto el código de convivencia en nombre de mi equipo. <span class="req">*</span></span>
+        </label>
+        <p class="hint consent-note">
+          <app-icon name="info" [size]="14" /> Tus datos y tu privacidad ya están en tu cuenta. Cada jugadora acepta los suyos al unirse.
+        </p>
+      </fieldset>
+
+      <div class="submit">
+        <a routerLink="/unete/listo" class="btn btn-pink btn-lg">Crear equipo <app-icon name="arrow-right" /></a>
+        <p class="small muted">Tu equipo queda <b>pendiente</b> hasta que el staff lo apruebe.</p>
+      </div>
+    </form>
+
+    <!-- Lo que sigue -->
+    <aside class="next" aria-label="Qué pasa después">
+      <div class="next-card">
+        <p class="next-kicker">Lo que sigue</p>
+        <ol>
+          <li><b>Recibes tu código</b> de equipo al instante.</li>
+          <li><b>Lo mandas</b> al grupo de WhatsApp del equipo.</li>
+          <li><b>Cada jugadora se registra</b> con él (mínimo 7).</li>
+          <li><b>Ves en “Mi equipo”</b> quién falta y quién ya está aprobada.</li>
+        </ol>
+        <div class="code-preview" aria-hidden="true">
+          <span>Tu código se verá así</span>
+          <b>JAG-7K2Q</b>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

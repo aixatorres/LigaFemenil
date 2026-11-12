@@ -1,0 +1,143 @@
+<app-admin-page-title title="Estadísticas" subtitle="Por jugadora y por equipo. Filtra y exporta.">
+  <button type="button" class="btn btn-outline btn-sm"><app-icon name="download" [size]="18" /> Exportar CSV</button>
+  <button type="button" class="btn btn-navy btn-sm"><app-icon name="download" [size]="18" /> Exportar Excel</button>
+</app-admin-page-title>
+
+<!-- Filtros -->
+<div class="card filters">
+  <div class="field">
+    <label class="label" for="s-torneo">Torneo</label>
+    <select class="select" id="s-torneo">
+      <option>Otoño 2026</option>
+      <option>Primavera 2026</option>
+      <option>Histórico</option>
+    </select>
+  </div>
+  <div class="field">
+    <label class="label" for="s-jornada">Jornada</label>
+    <select class="select" id="s-jornada">
+      <option>Todas</option>
+      @for (j of [1, 2, 3, 4, 5, 6]; track j) {
+        <option>Jornada {{ j }}</option>
+      }
+    </select>
+  </div>
+  <div class="field">
+    <label class="label" for="s-equipo">Equipo</label>
+    <select class="select" id="s-equipo">
+      <option>Todos</option>
+      @for (t of allTeams; track t.id) {
+        <option>{{ t.name }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<div class="chips view-tabs" role="group" aria-label="Vista">
+  <button type="button" class="chip" aria-pressed="true"><app-icon name="user" [size]="18" /> Por jugadora</button>
+  <button type="button" class="chip" aria-pressed="false"><app-icon name="users" [size]="18" /> Por equipo</button>
+</div>
+
+<!-- Por jugadora -->
+<section aria-labelledby="pj-title">
+  <h2 id="pj-title" class="h">Por jugadora</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="sr-only">Estadísticas por jugadora</caption>
+      <thead>
+        <tr>
+          <th scope="col">Jugadora</th>
+          <th scope="col">Equipo</th>
+          <th scope="col" class="num-col"><abbr title="Partidos jugados">PJ</abbr></th>
+          <th scope="col" class="num-col">Minutos</th>
+          <th scope="col" class="num-col">Goles</th>
+          <th scope="col" class="num-col"><abbr title="Tarjetas amarillas">TA</abbr></th>
+          <th scope="col" class="num-col"><abbr title="Tarjetas rojas">TR</abbr></th>
+          <th scope="col" class="num-col">Perfil</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of players; track p.id) {
+          <tr>
+            <td>
+              <span class="name">#{{ p.number }} {{ p.name }}</span>
+              <span class="small muted pos">{{ p.position }}</span>
+            </td>
+            <td>
+              <span class="team"><app-team-crest [team]="team(p.teamId)" [size]="24" /> {{ team(p.teamId).short }}</span>
+            </td>
+            <td class="num-col">{{ p.stats.partidos }}</td>
+            <td class="num-col">{{ p.stats.minutos }}</td>
+            <td class="num-col strong">{{ p.stats.goles }}</td>
+            <td class="num-col">
+              @if (p.stats.amarillas) {
+                <span class="ycard">{{ p.stats.amarillas }}</span>
+              } @else { 0 }
+            </td>
+            <td class="num-col">
+              @if (p.stats.rojas) {
+                <span class="rcard">{{ p.stats.rojas }}</span>
+              } @else { 0 }
+            </td>
+            <td class="num-col">
+              @if (p.isPublic) {
+                <span class="badge badge-info">Público</span>
+              } @else {
+                <span class="badge">Privado</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Por equipo -->
+<div class="team-grid">
+  <section aria-labelledby="pe-title">
+    <h2 id="pe-title" class="h">Por equipo</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="sr-only">Estadísticas por equipo</caption>
+        <thead>
+          <tr>
+            <th scope="col">Equipo</th>
+            <th scope="col" class="num-col">PJ</th>
+            <th scope="col" class="num-col">GF</th>
+            <th scope="col" class="num-col">GC</th>
+            <th scope="col" class="num-col">DG</th>
+            <th scope="col" class="num-col">Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (t of teams; track t.id) {
+            <tr>
+              <td><span class="team"><app-team-crest [team]="t" [size]="24" /> {{ t.name }}</span></td>
+              <td class="num-col">{{ t.record.pj }}</td>
+              <td class="num-col">{{ t.record.gf }}</td>
+              <td class="num-col">{{ t.record.gc }}</td>
+              <td class="num-col">{{ t.record.gf - t.record.gc }}</td>
+              <td class="num-col strong">{{ t.record.pts }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card chart" aria-labelledby="chart-title">
+    <h2 id="chart-title" class="h">Goles a favor por equipo</h2>
+    <ul class="bars">
+      @for (t of teams; track t.id) {
+        <li>
+          <span class="bar-label">{{ t.short }}</span>
+          <span class="bar-track" aria-hidden="true">
+            <span class="bar-fill" [style.width.%]="(t.record.gf / maxGoals) * 100" [style.background]="t.color"></span>
+          </span>
+          <span class="bar-val num">{{ t.record.gf }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

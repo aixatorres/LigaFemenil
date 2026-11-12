@@ -1,0 +1,126 @@
+.stepper {
+  margin-top: var(--space-5);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-7);
+}
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+  .next {
+    position: sticky;
+    top: calc(var(--header-h) + 64px);
+  }
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.swatch {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+.swatch input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.swatch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--c);
+  transition: transform var(--dur-fast) var(--ease-stamp);
+}
+.swatch:has(input:checked)::before {
+  box-shadow:
+    0 0 0 3px var(--paper-light),
+    0 0 0 5px var(--ink);
+  transform: scale(0.85);
+}
+.swatch:has(input:focus-visible)::before {
+  outline: 3px solid var(--pink);
+  outline-offset: 5px;
+}
+
+.file {
+  padding-top: 11px;
+}
+
+.consent-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--space-2) 0 0;
+}
+
+.submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.submit p {
+  margin: 0;
+  max-width: 36ch;
+}
+
+/* ---------- Lo que sigue ---------- */
+.next-card {
+  padding: var(--space-5);
+  background: var(--ink);
+  color: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--gold-500);
+  transform: rotate(1deg);
+}
+.next-kicker {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-marker);
+  font-size: var(--text-2xl);
+  color: var(--gold-400);
+}
+.next-card ol {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+  padding-left: 1.2rem;
+}
+.next-card li::marker {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--pink);
+}
+.code-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3);
+  border: 2px dashed var(--paper);
+  text-align: center;
+}
+.code-preview span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: rgb(244 236 223 / 0.75);
+}
+.code-preview b {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.25rem;
+  letter-spacing: 0.06em;
+  color: var(--paper-light);
+}

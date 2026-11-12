@@ -1,0 +1,64 @@
+<h2 class="h">Mis estadísticas <span class="marker note">¡vas que vuelas!</span></h2>
+
+<dl class="totals">
+  @for (t of totals; track t.label; let first = $first) {
+    <div [class.hl]="first || t.label === 'Goles'">
+      <dt>{{ t.label }}</dt>
+      <dd>{{ t.value }}</dd>
+    </div>
+  }
+</dl>
+
+<section aria-labelledby="goles-title" class="card chart">
+  <h3 id="goles-title">Goles por jornada</h3>
+  <ol class="bars">
+    @for (g of games.slice().reverse(); track g.j) {
+      <li>
+        <span class="bar" [style.height.%]="g.goals ? (g.goals / maxGoals) * 100 : 4" [class.zero]="!g.goals">
+          <span class="bar-val">{{ g.goals }}</span>
+        </span>
+        <span class="bar-lbl">J{{ g.j }}</span>
+      </li>
+    }
+  </ol>
+</section>
+
+<section aria-labelledby="detalle-title">
+  <h3 id="detalle-title" class="sub">Partido por partido</h3>
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="sr-only">Mis estadísticas por jornada</caption>
+      <thead>
+        <tr>
+          <th scope="col">Jornada</th>
+          <th scope="col">Rival</th>
+          <th scope="col">Resultado</th>
+          <th scope="col" class="num-col">Min</th>
+          <th scope="col" class="num-col">Goles</th>
+          <th scope="col" class="num-col">Tarjetas</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (g of games; track g.j) {
+          <tr>
+            <td class="num">J{{ g.j }}</td>
+            <td>
+              <span class="rival"><app-team-crest [team]="team(g.rival)" [size]="24" /> {{ team(g.rival).name }}</span>
+            </td>
+            <td><span class="res" [class.win]="g.result.startsWith('G')">{{ g.result }}</span></td>
+            <td class="num-col">{{ g.min }}'</td>
+            <td class="num-col strong">{{ g.goals }}</td>
+            <td class="num-col">
+              @if (g.yellow) {
+                <span class="ycard" aria-label="Amarilla"></span>
+              } @else {
+                –
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted foot-note"><app-icon name="info" [size]="14" /> Los minutos se calculan solos con las entradas y salidas que captura el staff.</p>
+</section>

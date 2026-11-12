@@ -1,0 +1,280 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: block;
+}
+
+.navbar {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+
+/* ---- Franja de próxima jornada ---- */
+.matchday {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.matchday-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 34px;
+}
+.md-tag {
+  padding: 1px 8px;
+  background: var(--pink);
+  color: #fff;
+  font-weight: 700;
+}
+.md-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.md-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--gold-400);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.md-link:hover {
+  color: #fff;
+}
+
+/* ---- Barra principal ---- */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: var(--header-h);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 44px;
+}
+.brand img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transform: rotate(-6deg);
+  filter: drop-shadow(2px 2px 0 var(--ink));
+  transition: transform var(--dur) var(--ease-stamp);
+}
+.brand:hover img {
+  transform: rotate(4deg) scale(1.05);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  white-space: nowrap;
+}
+.brand-top {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  text-transform: uppercase;
+}
+.brand-bottom {
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pink-600);
+}
+
+.links-desktop {
+  display: none;
+}
+.links-desktop ul {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.links-desktop a {
+  white-space: nowrap;
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  color: var(--ink);
+  font-family: var(--font-condensed);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+/* Subrayado de plumón al pasar / activo */
+.links-desktop a::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 6px;
+  right: 6px;
+  top: 52%;
+  height: 0.55em;
+  background: var(--gold-400);
+  transform: skew(-8deg) scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease-out);
+}
+.links-desktop a:hover::before {
+  transform: skew(-8deg) scaleX(1);
+}
+.links-desktop a.active::before {
+  background: var(--pink);
+  transform: skew(-8deg) scaleX(1);
+}
+.links-desktop a.active {
+  color: var(--ink);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.team-link {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  color: var(--ink);
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+@media (min-width: 1180px) {
+  .team-link {
+    display: inline-flex;
+  }
+}
+
+.menu-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper-light);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.menu-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ---- Menú móvil: índice de programa ---- */
+.mobile {
+  border-top: 3px solid var(--ink);
+  max-height: calc(100dvh - var(--header-h) - 34px);
+  overflow-y: auto;
+  background: var(--paper);
+}
+.mobile ul {
+  margin: 0;
+  padding-block: var(--space-2) var(--space-6);
+  list-style: none;
+}
+.mobile a:not(.btn) {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  min-height: 56px;
+  padding-top: 10px;
+  border-bottom: 2px dashed var(--kraft-line);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+}
+.idx {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pink-600);
+}
+.mobile a.active {
+  color: var(--pink-600);
+}
+.mobile-cta {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+}
+.note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xl);
+  text-align: center;
+  transform: rotate(-2deg);
+}
+
+@media (max-width: 460px) {
+  .brand-bottom,
+  .cta {
+    display: none;
+  }
+}
+
+@media (min-width: 1180px) {
+  .links-desktop {
+    display: block;
+  }
+  .menu-btn,
+  .mobile {
+    display: none;
+  }
+}
+
+/* Escritorio estrecho: compactar para que nada se parta en dos líneas */
+@media (min-width: 1180px) and (max-width: 1440px) {
+  .links-desktop a {
+    padding: 0 7px;
+    font-size: 0.98rem;
+  }
+  .brand-top {
+    font-size: 1.25rem;
+  }
+  .brand img {
+    width: 52px;
+    height: 52px;
+  }
+}
+@media (min-width: 1180px) and (max-width: 1320px) {
+  .brand-text {
+    display: none;
+  }
+}

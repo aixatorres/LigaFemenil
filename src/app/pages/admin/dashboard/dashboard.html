@@ -1,0 +1,111 @@
+<app-admin-page-title title="Dashboard" subtitle="Resumen del Torneo Otoño 2026">
+  <a routerLink="/admin/captura" class="btn btn-gold"><app-icon name="clipboard" /> Capturar partido</a>
+</app-admin-page-title>
+
+<!-- KPIs -->
+<section class="kpis" aria-label="Indicadores">
+  <app-kpi-card label="Equipos registrados" [value]="stats.equipos" icon="flag" />
+  <app-kpi-card label="Jugadoras registradas" [value]="stats.jugadoras" icon="users" hint="+6 esta semana" />
+  <app-kpi-card label="Registros por aprobar" [value]="pending.length" icon="clock" tone="warning" hint="Revisar antes del domingo" />
+  <app-kpi-card label="Partidos sin capturar" [value]="uncaptured.length" icon="alert" tone="danger" hint="Jornada 6" />
+</section>
+
+<div class="grid-main">
+  <!-- Próxima jornada -->
+  <section class="card" aria-labelledby="next-title">
+    <div class="card-title">
+      <h2 id="next-title" class="h">Próxima jornada · J7</h2>
+      <span class="badge">Dom 16 nov</span>
+    </div>
+    <ul class="list">
+      @for (m of next; track m.id) {
+        <li class="match">
+          <span class="time num">{{ m.time }}</span>
+          <span class="vs">
+            <app-team-crest [team]="team(m.homeId)" [size]="28" />
+            <span class="t">{{ team(m.homeId).short }}</span>
+            <span class="muted">vs</span>
+            <span class="t">{{ team(m.awayId).short }}</span>
+            <app-team-crest [team]="team(m.awayId)" [size]="28" />
+          </span>
+          <span class="field small muted">{{ m.field }}</span>
+        </li>
+      }
+    </ul>
+    <a routerLink="/admin/jornadas" class="btn btn-ghost btn-sm">Gestionar jornadas <app-icon name="arrow-right" [size]="16" /></a>
+  </section>
+
+  <!-- Pendientes -->
+  <section class="card" aria-labelledby="pend-title">
+    <div class="card-title">
+      <h2 id="pend-title" class="h">Registros pendientes</h2>
+      <span class="badge badge-warning">{{ pending.length }}</span>
+    </div>
+    <ul class="list">
+      @for (r of pending; track r.id) {
+        <li class="pending">
+          <span class="avatar" aria-hidden="true">{{ r.name.charAt(0) }}</span>
+          <span class="who">
+            <span class="t">{{ r.name }}</span>
+            <span class="small muted">{{ team(r.teamId).name }} · #{{ r.number }}</span>
+          </span>
+          @if (!r.privacyAccepted) {
+            <span class="badge badge-danger">Sin aviso</span>
+          }
+          <button type="button" class="btn btn-success btn-sm" [attr.aria-label]="'Aprobar a ' + r.name">
+            <app-icon name="check" [size]="18" />
+          </button>
+        </li>
+      }
+    </ul>
+    <a routerLink="/admin/equipos" class="btn btn-ghost btn-sm">Ver todos <app-icon name="arrow-right" [size]="16" /></a>
+  </section>
+
+  <!-- Goleadoras -->
+  <section class="card" aria-labelledby="gol-title">
+    <div class="card-title">
+      <h2 id="gol-title" class="h">Top goleadoras</h2>
+      <app-icon name="ball" />
+    </div>
+    <ol class="rank">
+      @for (p of scorers; track p.id; let i = $index) {
+        <li>
+          <span class="pos num">{{ i + 1 }}</span>
+          <span class="who">
+            <span class="t">{{ p.isPublic ? p.name : 'Jugadora #' + p.number }}</span>
+            <span class="small muted">{{ team(p.teamId).name }}</span>
+          </span>
+          <span class="bar" aria-hidden="true"><span [style.width.%]="(p.stats.goles / scorers[0].stats.goles) * 100"></span></span>
+          <span class="val num">{{ p.stats.goles }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Tarjetas -->
+  <section class="card" aria-labelledby="tarj-title">
+    <div class="card-title">
+      <h2 id="tarj-title" class="h">Alerta de tarjetas</h2>
+      <span class="badge badge-danger"><app-icon name="alert" [size]="14" /> Suspensión a las {{ suspensionAt }}</span>
+    </div>
+    <ul class="list">
+      @for (p of carded; track p.id) {
+        <li class="cards-row" [class.warn]="p.stats.amarillas >= suspensionAt - 1 || p.stats.rojas > 0">
+          <span class="who">
+            <span class="t">{{ p.name }}</span>
+            <span class="small muted">{{ team(p.teamId).name }}</span>
+          </span>
+          <span class="cards">
+            <span class="ycard"><span class="sr-only">Amarillas: </span>{{ p.stats.amarillas }}</span>
+            <span class="rcard"><span class="sr-only">Rojas: </span>{{ p.stats.rojas }}</span>
+          </span>
+          @if (p.stats.rojas > 0) {
+            <span class="badge badge-danger">Suspendida J7</span>
+          } @else if (p.stats.amarillas >= suspensionAt - 1) {
+            <span class="badge badge-warning">A 1 tarjeta</span>
+          }
+        </li>
+      }
+    </ul>
+  </section>
+</div>

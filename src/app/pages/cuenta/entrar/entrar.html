@@ -1,0 +1,51 @@
+<section class="page" aria-labelledby="entrar-title">
+  <div class="container layout">
+    <div class="intro">
+      <p class="eyebrow">Mi cuenta</p>
+      <h1 id="entrar-title">Entra a tu cuenta</h1>
+      <p class="marker note">sin contraseñas que olvidar</p>
+      <p class="lead">
+        Un solo acceso para todas. Te mandamos un código de 6 dígitos a tu WhatsApp o correo
+        y ves lo que te toca según tu rol.
+      </p>
+      <ul class="perks">
+        <li><app-icon name="eye" [size]="20" /><span><b>Jugadoras:</b> tus stats y qué se publica de ti</span></li>
+        <li><app-icon name="users" [size]="20" /><span><b>Capitanas:</b> además, tu plantel y el código del equipo</span></li>
+        <li><app-icon name="shield" [size]="20" /><span><b>Staff:</b> además, el panel de la liga</span></li>
+      </ul>
+    </div>
+
+    <div class="card login">
+      <!-- Paso 1 -->
+      <form class="step" (submit)="$event.preventDefault()">
+        <p class="step-tag"><span>1</span> ¿A dónde te mandamos el código?</p>
+        <div class="segmented channel" role="radiogroup" aria-label="Recibir el código por">
+          <label><input type="radio" name="canal" checked /><span><app-icon name="whatsapp" [size]="16" /> WhatsApp</span></label>
+          <label><input type="radio" name="canal" /><span><app-icon name="mail" [size]="16" /> Correo</span></label>
+        </div>
+        <div class="field">
+          <label class="label" for="contacto">Tu WhatsApp</label>
+          <input class="input" id="contacto" type="tel" inputmode="tel" autocomplete="tel" placeholder="55 1234 5678" />
+        </div>
+        <button type="submit" class="btn btn-navy btn-block">Mandarme el código</button>
+      </form>
+
+      <div class="divider" aria-hidden="true"><span>después</span></div>
+
+      <!-- Paso 2 -->
+      <form class="step" (submit)="$event.preventDefault()">
+        <p class="step-tag"><span>2</span> Escribe el código</p>
+        <p class="small muted sent">Te lo mandamos al <b>55 •••• 21 34</b>. Vence en 10 minutos.</p>
+        <app-otp-input preview="482" />
+        <a routerLink="/mi-cuenta" class="btn btn-pink btn-block btn-lg">Entrar <app-icon name="arrow-right" /></a>
+        <p class="small resend">¿No te llegó? <button type="button" class="link-btn" disabled>Reenviar en 0:45</button></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="container foot">
+    <p class="small muted">
+      ¿Todavía no tienes cuenta? <a routerLink="/unete">Créala aquí</a>, toma tres minutos.
+    </p>
+  </div>
+</section>

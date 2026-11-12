@@ -1,0 +1,136 @@
+.h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+  font-size: var(--text-3xl);
+}
+.note {
+  font-size: 1.4rem;
+  text-transform: none;
+  transform: rotate(-3deg);
+}
+
+.totals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin: var(--space-4) 0 var(--space-6);
+}
+@media (min-width: 700px) {
+  .totals {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.totals div {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: var(--space-4);
+  border: 2px solid var(--ink);
+  background: var(--paper-light);
+  box-shadow: var(--shadow-sm);
+}
+.totals .hl {
+  background: var(--gold-400);
+}
+.totals dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.totals dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.chart {
+  margin-bottom: var(--space-6);
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  height: 200px;
+  margin: var(--space-4) 0 0;
+  padding: 0 0 0 0;
+  list-style: none;
+  border-bottom: 3px solid var(--ink);
+}
+.bars li {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+.bar {
+  position: relative;
+  width: 100%;
+  max-width: 64px;
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  border-bottom: 0;
+}
+.bar.zero {
+  background: var(--kraft);
+}
+.bar-val {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+}
+.bar-lbl {
+  position: relative;
+  top: 30px;
+  height: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.chart {
+  padding-bottom: var(--space-7);
+}
+
+.sub {
+  margin-bottom: var(--space-3);
+}
+.rival {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.res {
+  padding: 2px 6px;
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.res.win {
+  background: var(--color-success-bg);
+}
+.strong {
+  font-family: var(--font-display) !important;
+  font-size: 1.3rem;
+}
+.ycard {
+  display: inline-block;
+  width: 14px;
+  height: 19px;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--card-yellow);
+}
+.foot-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-3);
+}

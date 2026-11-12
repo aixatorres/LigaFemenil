@@ -1,0 +1,40 @@
+<app-page-header
+  eyebrow="Galería"
+  title="Así se vive cada domingo"
+  note="di whisky"
+  subtitle="Fotos y videos de las jornadas, convivencias y momentos que nos hacen comunidad."
+/>
+
+<section class="section" aria-label="Fotos y videos">
+  <div class="container">
+    <div class="chips filters" role="group" aria-label="Filtrar galería">
+      @for (f of filters; track f; let first = $first) {
+        <button type="button" class="chip" [attr.aria-pressed]="first">{{ f }}</button>
+      }
+    </div>
+
+    <ul class="masonry">
+      @for (item of items; track item.title; let i = $index) {
+        <li class="item">
+          <figure>
+            <app-media-placeholder
+              [kind]="item.kind"
+              [ratio]="item.tall ? '3 / 4' : '4 / 3'"
+              [tone]="tones[i % 3]"
+              [label]="item.title"
+            />
+            <figcaption>
+              <span class="title">{{ item.title }}</span>
+              <span class="meta">{{ item.category }} · {{ item.date }}</span>
+            </figcaption>
+          </figure>
+        </li>
+      }
+    </ul>
+
+    <p class="small muted note">
+      Solo publicamos imágenes de jugadoras que autorizaron el uso de su imagen. Si quieres que retiremos una foto,
+      escríbenos desde la página de contacto.
+    </p>
+  </div>
+</section>

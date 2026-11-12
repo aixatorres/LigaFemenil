@@ -1,0 +1,47 @@
+.anchors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+.anchors a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1.5px solid rgb(255 255 255 / 0.35);
+  border-radius: var(--radius-full);
+  color: #fff;
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.anchors a:hover {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+  color: var(--navy-950);
+}
+
+.jornada-chips {
+  margin-block: var(--space-4) var(--space-5);
+}
+
+.results {
+  margin-top: var(--space-5);
+}
+
+.legend {
+  margin-top: var(--space-3);
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+.video .btn {
+  align-self: flex-start;
+}

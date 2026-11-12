@@ -1,0 +1,82 @@
+.stepper {
+  margin-top: var(--space-5);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-7);
+}
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + 64px);
+  }
+}
+
+.intro {
+  margin: 0 0 var(--space-4);
+}
+.channel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 360px;
+  margin-bottom: var(--space-4);
+}
+.channel span {
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.privacy {
+  padding-inline: var(--space-2);
+}
+.privacy .intro {
+  padding-inline: var(--space-4);
+}
+
+.submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.submit p {
+  margin: 0;
+}
+
+.side-card {
+  padding: var(--space-5);
+  background: var(--ink);
+  color: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--gold-500);
+  transform: rotate(1deg);
+}
+.side-kicker {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-marker);
+  font-size: var(--text-2xl);
+  color: var(--gold-400);
+}
+.side-card ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding-left: 1.1rem;
+}
+.side-card li::marker {
+  color: var(--pink);
+}
+.lock {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding-top: var(--space-3);
+  border-top: 2px dashed rgb(244 236 223 / 0.35);
+  font-size: var(--text-sm);
+}

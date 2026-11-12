@@ -1,0 +1,184 @@
+<div class="capture">
+  <!-- ============ MARCADOR + CRONÓMETRO (fijo arriba) ============ -->
+  <section class="scoreboard" aria-label="Marcador y cronómetro">
+    <p class="match-meta">Jornada 7 · Cancha 1 · 09:00</p>
+
+    <div class="score-row">
+      <div class="side">
+        <app-team-crest [team]="home" [size]="48" />
+        <span class="short">{{ home.short }}</span>
+      </div>
+
+      <div class="score" aria-live="polite">
+        <span class="num">1</span><span class="dash" aria-hidden="true">–</span><span class="num">1</span>
+      </div>
+
+      <div class="side">
+        <app-team-crest [team]="away" [size]="48" />
+        <span class="short">{{ away.short }}</span>
+      </div>
+    </div>
+
+    <div class="clock-row">
+      <div class="periods" role="group" aria-label="Tiempo">
+        <button type="button" class="period" aria-pressed="true">1T</button>
+        <button type="button" class="period" aria-pressed="false">2T</button>
+      </div>
+
+      <p class="clock" aria-label="Cronómetro: 31 minutos 42 segundos">
+        <app-icon name="timer" [size]="22" />
+        <span class="num">31:42</span>
+        <span class="live-dot" aria-hidden="true"></span>
+      </p>
+
+      <button type="button" class="clock-btn" aria-label="Pausar cronómetro">
+        <app-icon name="pause" [size]="26" />
+      </button>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="col-main">
+      <!-- ============ ACCIONES ============ -->
+      <section aria-labelledby="acciones-title">
+        <h2 id="acciones-title" class="sec-title">Registrar evento <span class="min">min {{ minute }}'</span></h2>
+        <div class="actions">
+          @for (a of actions; track a.type) {
+            <button type="button" class="action" [class]="'action act-' + a.type" [attr.aria-pressed]="a.type === 'gol'">
+              <app-icon
+                [name]="a.icon"
+                [size]="34"
+                [fill]="a.type === 'amarilla' ? 'var(--card-yellow)' : a.type === 'roja' ? 'var(--card-red)' : 'none'"
+              />
+              <span>{{ a.label }}</span>
+            </button>
+          }
+        </div>
+      </section>
+
+      <!-- ============ ELEGIR JUGADORA (estado de ejemplo: Gol) ============ -->
+      <section class="picker" aria-labelledby="picker-title">
+        <div class="picker-head">
+          <h2 id="picker-title" class="sec-title">
+            <app-icon name="ball" [size]="22" /> Gol · {{ minute }}' · ¿Quién anotó?
+          </h2>
+          <button type="button" class="btn btn-ghost btn-sm">Cancelar</button>
+        </div>
+
+        <div class="segmented team-switch" role="radiogroup" aria-label="Equipo">
+          <label><input type="radio" name="equipo-evento" checked /><span>{{ home.name }}</span></label>
+          <label><input type="radio" name="equipo-evento" /><span>{{ away.name }}</span></label>
+        </div>
+
+        <div class="numbers">
+          @for (p of homeLineup; track p.number) {
+            @if (p.onField) {
+              <button type="button" class="num-btn" [attr.aria-label]="'#' + p.number + ' ' + p.name">
+                <span class="n">{{ p.number }}</span>
+                <span class="nm">{{ p.name.split(' ')[0] }}</span>
+              </button>
+            }
+          }
+        </div>
+
+        <label class="check own-goal">
+          <input type="checkbox" />
+          <span>Autogol</span>
+        </label>
+      </section>
+
+      <!-- ============ LÍNEA DE TIEMPO ============ -->
+      <section class="card timeline-card" aria-labelledby="timeline-title">
+        <h2 id="timeline-title" class="sec-title">Eventos del partido</h2>
+        <ol class="timeline">
+          @for (e of events; track $index) {
+            <li class="ev" [class]="'ev ev-' + e.type">
+              <span class="ev-min num">{{ e.minute }}'</span>
+              <span class="ev-icon" aria-hidden="true">
+                <app-icon
+                  [name]="eventIcon[e.type]"
+                  [size]="18"
+                  [fill]="e.type === 'amarilla' ? 'var(--card-yellow)' : e.type === 'roja' ? 'var(--card-red)' : 'none'"
+                />
+              </span>
+              <span class="ev-text">
+                <span class="ev-type">{{ e.type }}</span>
+                <span>{{ e.text }}</span>
+                <span class="small muted">{{ team(e.teamId).name }}</span>
+              </span>
+              <button type="button" class="ev-edit" [attr.aria-label]="'Editar evento del minuto ' + e.minute">
+                <app-icon name="pencil" [size]="16" />
+              </button>
+            </li>
+          }
+          <li class="ev ev-start">
+            <span class="ev-min num">0'</span>
+            <span class="ev-icon" aria-hidden="true"><app-icon name="play" [size]="16" /></span>
+            <span class="ev-text"><span class="ev-type">Inicio</span></span>
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <!-- ============ ALINEACIONES ============ -->
+    <aside class="col-side" aria-label="Alineaciones">
+      @for (side of sides; track side.t.id) {
+        <section class="card lineup">
+          <div class="lineup-head">
+            <app-team-crest [team]="side.t" [size]="32" />
+            <h2 class="sec-title">{{ side.t.name }}</h2>
+          </div>
+          <table class="table compact">
+            <caption class="sr-only">Alineación de {{ side.t.name }} y minutos jugados</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="num-col">#</th>
+                <th scope="col">Jugadora</th>
+                <th scope="col" class="num-col">Min</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of side.list; track p.number) {
+                <tr [class.bench]="!p.onField">
+                  <td class="num-col num">{{ p.number }}</td>
+                  <td>
+                    <span class="pl">
+                      <span class="pl-name">{{ p.name }}</span>
+                      <span class="pl-tags">
+                        @if (p.onField) {
+                          <span class="badge badge-success">En cancha</span>
+                        } @else if (p.outAt !== undefined) {
+                          <span class="badge">Salió {{ p.outAt }}'</span>
+                        } @else {
+                          <span class="badge">Banca</span>
+                        }
+                        @if (p.inAt > 0) {
+                          <span class="badge badge-info">Entró {{ p.inAt }}'</span>
+                        }
+                        @if (p.goals) {
+                          <span class="badge badge-gold"><app-icon name="ball" [size]="12" /> {{ p.goals }}</span>
+                        }
+                        @if (p.yellow) {
+                          <span class="mini-card" aria-label="Tarjeta amarilla"></span>
+                        }
+                      </span>
+                    </span>
+                  </td>
+                  <td class="num-col num mins">{{ p.minutes }}'</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </section>
+      }
+      <p class="small muted auto-note">
+        <app-icon name="clock" [size]="16" /> Los minutos jugados se calculan solos con las entradas y salidas.
+      </p>
+    </aside>
+  </div>
+
+  <div class="finish">
+    <button type="button" class="btn btn-outline btn-lg">Guardar borrador</button>
+    <button type="button" class="btn btn-navy btn-lg"><app-icon name="check" /> Finalizar partido</button>
+  </div>
+</div>

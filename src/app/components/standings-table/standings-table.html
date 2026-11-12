@@ -1,0 +1,44 @@
+<div class="table-wrap">
+  <table class="table">
+    <caption class="sr-only">{{ caption() }}</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="num-col"><abbr title="Posición">#</abbr></th>
+        <th scope="col">Equipo</th>
+        <th scope="col" class="num-col"><abbr title="Partidos jugados">PJ</abbr></th>
+        @if (!compact()) {
+          <th scope="col" class="num-col"><abbr title="Ganados">G</abbr></th>
+          <th scope="col" class="num-col"><abbr title="Empatados">E</abbr></th>
+          <th scope="col" class="num-col"><abbr title="Perdidos">P</abbr></th>
+          <th scope="col" class="num-col"><abbr title="Goles a favor">GF</abbr></th>
+          <th scope="col" class="num-col"><abbr title="Goles en contra">GC</abbr></th>
+        }
+        <th scope="col" class="num-col"><abbr title="Diferencia de goles">DG</abbr></th>
+        <th scope="col" class="num-col"><abbr title="Puntos">Pts</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (team of teams(); track team.id; let i = $index) {
+        <tr [class.leader]="i === 0">
+          <td class="num-col pos">{{ i + 1 }}</td>
+          <td>
+            <a class="team" [routerLink]="['/equipos', team.id]">
+              <app-team-crest [team]="team" [size]="32" />
+              <span>{{ team.name }}</span>
+            </a>
+          </td>
+          <td class="num-col">{{ team.record.pj }}</td>
+          @if (!compact()) {
+            <td class="num-col">{{ team.record.pg }}</td>
+            <td class="num-col">{{ team.record.pe }}</td>
+            <td class="num-col">{{ team.record.pp }}</td>
+            <td class="num-col">{{ team.record.gf }}</td>
+            <td class="num-col">{{ team.record.gc }}</td>
+          }
+          <td class="num-col">{{ team.record.gf - team.record.gc }}</td>
+          <td class="num-col pts">{{ team.record.pts }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

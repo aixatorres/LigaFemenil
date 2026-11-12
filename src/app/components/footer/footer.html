@@ -1,0 +1,59 @@
+<footer class="footer">
+  <app-rainbow-stripe [height]="12" [tilt]="-1" />
+
+  <div class="container top">
+    <p class="giant" aria-hidden="true">Más que fútbol</p>
+    <p class="marker sign">nos vemos el domingo</p>
+  </div>
+
+  <div class="container grid-footer">
+    <div class="about">
+      <a routerLink="/" class="brand">
+        <img src="images/logo.png" alt="Liga de Fútbol Mujeres Diversas México" width="104" height="104" />
+      </a>
+      <p class="small">Un espacio seguro, diverso e incluyente para jugar cada domingo en México.</p>
+      <ul class="social" aria-label="Redes sociales">
+        <li><a href="#" aria-label="Instagram"><app-icon name="instagram" [size]="22" /></a></li>
+        <li><a href="#" aria-label="Facebook"><app-icon name="facebook" [size]="22" /></a></li>
+        <li><a href="#" aria-label="TikTok"><app-icon name="tiktok" [size]="22" /></a></li>
+        <li><a href="#" aria-label="WhatsApp"><app-icon name="whatsapp" [size]="22" /></a></li>
+      </ul>
+    </div>
+
+    <nav aria-label="Pie de página">
+      <h2 class="col-title">La liga</h2>
+      <ul class="list">
+        @for (link of links; track link.path) {
+          <li><a [routerLink]="link.path">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="col-title">Participa</h2>
+      <ul class="list">
+        <li><a routerLink="/unete">Crea tu cuenta</a></li>
+        <li><a routerLink="/entrar">Entrar a mi cuenta</a></li>
+        <li><a routerLink="/patrocinadores">Patrocina la liga</a></li>
+        <li><a routerLink="/entrenamiento">Entrenamiento personal</a></li>
+        <li><a routerLink="/aviso-de-privacidad">Aviso de privacidad</a></li>
+      </ul>
+    </div>
+
+    <div class="ticket">
+      <h2 class="col-title">La cancha</h2>
+      <p class="contact"><app-icon name="map-pin" [size]="18" /> [Dirección de la cancha], [Ciudad]</p>
+      <p class="contact"><app-icon name="calendar" [size]="18" /> Domingos · 9:00 a 14:00</p>
+      <p class="contact"><app-icon name="mail" [size]="18" /> contacto&#64;ligadiversas.mx</p>
+    </div>
+  </div>
+
+  <div class="container bottom">
+    <p>© {{ year }} Liga de Fútbol Mujeres Diversas México</p>
+    <p>
+      <a routerLink="/aviso-de-privacidad">Aviso de privacidad</a>
+      <span aria-hidden="true"> / </span>
+      <a routerLink="/entrar">Entrar</a>
+    </p>
+  </div>
+</footer>

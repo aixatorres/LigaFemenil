@@ -1,0 +1,56 @@
+<header class="team-hero" [style.--team-color]="team().color">
+  <div class="container">
+    <a routerLink="/equipos" class="back"><app-icon name="chevron-right" [size]="18" class="flip" /> Todos los equipos</a>
+    <div class="identity">
+      <app-team-crest [team]="team()" [size]="112" />
+      <div>
+        <p class="eyebrow">Torneo Otoño 2026</p>
+        <h1>{{ team().name }}</h1>
+        <p class="sub">{{ players().length }} jugadoras registradas · {{ position() }}° lugar</p>
+      </div>
+    </div>
+  </div>
+</header>
+<app-rainbow-stripe [height]="6" />
+
+<section class="section-tight" aria-label="Estadísticas del equipo">
+  <div class="container">
+    <dl class="stats">
+      @for (s of stats(); track s.label) {
+        <div class="stat">
+          <dt>{{ s.label }}</dt>
+          <dd class="num">{{ s.value }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="plantel-title">
+  <div class="container">
+    <div class="row-between head">
+      <h2 id="plantel-title">Plantel</h2>
+      <p class="small muted privacy">
+        <app-icon name="lock" [size]="16" /> Algunas jugadoras eligieron mantener su perfil privado.
+      </p>
+    </div>
+    <div class="players">
+      @for (p of players(); track p.id) {
+        <app-player-card [player]="p" />
+      } @empty {
+        <p class="muted">El plantel se publicará pronto.</p>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream" aria-labelledby="partidos-title">
+  <div class="container">
+    <h2 id="partidos-title">Partidos</h2>
+    <div class="grid-2">
+      @for (m of matches(); track m.id) {
+        <app-match-card [match]="m" />
+      }
+    </div>
+  </div>
+</section>

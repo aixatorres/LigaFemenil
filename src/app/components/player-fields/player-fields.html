@@ -1,0 +1,69 @@
+<fieldset class="player">
+  <legend>
+    @if (mode() === 'self') {
+      <span class="dorsal" aria-hidden="true">#</span>
+      Tus datos
+    } @else {
+      <span class="dorsal" aria-hidden="true">{{ index() }}</span>
+      Jugadora {{ index() }}
+      @if (captain()) {
+        <span class="badge badge-gold">Capitana</span>
+      }
+    }
+  </legend>
+
+  @if (mode() === 'roster') {
+    <button type="button" class="remove" [attr.aria-label]="'Quitar jugadora ' + index()">
+      <app-icon name="trash" [size]="18" />
+    </button>
+  }
+
+  <div class="form-grid">
+    <div class="field span-2">
+      <label class="label" [for]="id('nombre')">Nombre completo <span class="req">*</span></label>
+      <input class="input" [id]="id('nombre')" type="text" autocomplete="name" />
+    </div>
+
+    <div class="field">
+      <label class="label" [for]="id('numero')">Número <span class="req">*</span></label>
+      <input class="input" [id]="id('numero')" type="number" inputmode="numeric" min="0" max="99" />
+    </div>
+
+    <div class="field">
+      <label class="label" [for]="id('posicion')">Posición</label>
+      <select class="select" [id]="id('posicion')">
+        <option value="">Selecciona…</option>
+        <option>Portera</option>
+        <option>Defensa</option>
+        <option>Medio</option>
+        <option>Delantera</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="label" [for]="id('tel')">Teléfono <span class="req">*</span></label>
+      <input class="input" [id]="id('tel')" type="tel" inputmode="tel" autocomplete="tel" />
+      <span class="hint"><app-icon name="lock" [size]="12" /> Privado, solo lo ve el staff.</span>
+    </div>
+
+    <div class="field">
+      <label class="label" [for]="id('nacimiento')">Fecha de nacimiento</label>
+      <input class="input" [id]="id('nacimiento')" type="date" />
+    </div>
+  </div>
+
+  <div class="emergency">
+    <p class="sub"><app-icon name="phone" [size]="16" /> Contacto de emergencia <span class="private">(privado)</span></p>
+    <div class="form-grid">
+      <div class="field">
+        <label class="label" [for]="id('em-nombre')">Nombre <span class="req">*</span></label>
+        <input class="input" [id]="id('em-nombre')" type="text" />
+      </div>
+      <div class="field">
+        <label class="label" [for]="id('em-tel')">Teléfono <span class="req">*</span></label>
+        <input class="input" [id]="id('em-tel')" type="tel" inputmode="tel" />
+      </div>
+    </div>
+  </div>
+
+</fieldset>

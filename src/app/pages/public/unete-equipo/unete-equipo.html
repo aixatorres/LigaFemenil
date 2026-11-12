@@ -1,0 +1,60 @@
+<app-page-header
+  eyebrow="Únete · paso 2 de 2"
+  title="¿Cómo te unes?"
+  note="ya casi estás"
+  subtitle="Tu cuenta ya está lista. Ahora elige: te unes a un equipo con su código, creas uno o llegas como agente libre."
+>
+  <app-stepper class="stepper" [steps]="['Tu cuenta', 'Tu equipo']" [current]="1" />
+</app-page-header>
+
+<!-- ============ TRES PUERTAS ============ -->
+<section class="section" aria-label="Elige cómo registrarte">
+  <div class="container doors">
+    <!-- Capitana -->
+    <article class="door door-captain">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="door-kicker">Quiero ser capitana</p>
+      <h2>Crea un equipo</h2>
+      <p>Le pones nombre y colores, y recibes un <b>código</b> para mandar al grupo. Te vuelves capitana: desde tu cuenta ves quién ya se unió.</p>
+      <a routerLink="/unete/crear-equipo" class="btn btn-gold btn-lg">Crear equipo <app-icon name="arrow-right" /></a>
+    </article>
+
+    <!-- Jugadora con código -->
+    <article class="door door-code">
+      <p class="door-kicker">Mi capitana me pasó un código</p>
+      <h2>Únete a tu equipo</h2>
+      <form class="code-form" (submit)="$event.preventDefault()">
+        <label class="label" for="codigo">Código de equipo</label>
+        <div class="code-row">
+          <input
+            class="input code-input"
+            id="codigo"
+            type="text"
+            placeholder="JAG-7K2Q"
+            autocapitalize="characters"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <a routerLink="/mi-cuenta" class="btn btn-navy">Unirme <app-icon name="arrow-right" /></a>
+        </div>
+      </form>
+      <app-scribble-arrow class="door-arrow" [size]="70" [rotate]="-30" />
+    </article>
+
+    <!-- Agente libre -->
+    <article class="door door-free">
+      <p class="door-kicker">Vengo sola</p>
+      <h2>Te buscamos equipo</h2>
+      <p>¿No tienes equipo? No pasa nada: muchas llegaron así. Déjanos tus datos y te acomodamos en uno con lugar.</p>
+      <a routerLink="/mi-cuenta" class="btn btn-outline">Soy agente libre</a>
+    </article>
+  </div>
+
+  <div class="container already">
+    <p>
+      <app-icon name="info" [size]="18" />
+      ¿Aún no sabes? Puedes elegir después desde <a routerLink="/mi-cuenta"><b>Mi cuenta</b></a>.
+    </p>
+  </div>
+</section>
+

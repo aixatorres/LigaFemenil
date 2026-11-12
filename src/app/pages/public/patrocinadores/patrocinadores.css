@@ -1,0 +1,118 @@
+.header-ctas {
+  margin-top: var(--space-5);
+}
+
+.impact {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.impact li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-weight: 600;
+}
+.impact app-icon {
+  color: var(--mx-green);
+}
+
+.reach {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+.reach-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--navy-900);
+  color: var(--gold-400);
+}
+.reach-item:nth-child(2),
+.reach-item:nth-child(3) {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--navy-700);
+}
+.reach-value {
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: #fff;
+}
+.reach-item:nth-child(2) .reach-value,
+.reach-item:nth-child(3) .reach-value {
+  color: var(--color-ink);
+}
+.reach-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.8);
+}
+.reach-item:nth-child(2) .reach-label,
+.reach-item:nth-child(3) .reach-label {
+  color: var(--color-ink-muted);
+}
+
+.pkg {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.pkg.featured {
+  border: 2px solid var(--gold-500);
+  box-shadow: var(--shadow-lg);
+}
+.ribbon {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+}
+.pkg-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-3xl);
+  margin-bottom: 0;
+}
+.pkg-price {
+  color: var(--gold-700);
+  font-weight: 700;
+}
+.pkg ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+.pkg li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.pkg li app-icon {
+  color: var(--color-success);
+}
+.pkg .btn {
+  margin-top: auto;
+}
+
+.form-wrap {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .form-wrap {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}
+.form {
+  color: var(--color-ink);
+}

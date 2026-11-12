@@ -1,0 +1,154 @@
+@if (!session.isCaptain()) {
+  <div class="alert alert-warning">
+    <app-icon name="lock" [size]="20" />
+    <p>Esta sección es solo para capitanas. Si quieres crear un equipo, puedes hacerlo desde <a routerLink="/unete/crear-equipo">Crear equipo</a>.</p>
+  </div>
+} @else {
+<div class="team-row" [style.--team]="team.color">
+  <app-team-crest [team]="team" [size]="64" />
+  <div class="team-row-text">
+    <h2 class="team-name">{{ team.name }}</h2>
+    <p class="status">
+      @if (portal.status === 'aprobado') {
+        <span class="badge badge-success"><app-icon name="check-circle" [size]="14" /> Equipo aprobado</span>
+      } @else {
+        <span class="badge badge-warning"><app-icon name="clock" [size]="14" /> En revisión</span>
+      }
+      <span class="badge">Torneo Otoño 2026</span>
+    </p>
+  </div>
+  <a [routerLink]="['/equipos', team.id]" class="btn btn-outline btn-sm"><app-icon name="eye" [size]="18" /> Página pública</a>
+</div>
+
+<div class="body">
+  <!-- ============ RESUMEN ============ -->
+  <section class="summary" aria-label="Resumen del plantel">
+    <div class="card progress-card">
+      <p class="label">Plantel</p>
+      <p class="count">
+        <span class="big">{{ roster.length }}</span>
+        <span class="of">de {{ portal.maxPlayers }} jugadoras</span>
+      </p>
+      <div class="bar" role="img" [attr.aria-label]="approved + ' aprobadas, ' + pending + ' pendientes, ' + invited + ' invitadas'">
+        <span class="seg seg-ok" [style.width.%]="approvedPct"></span>
+        <span class="seg seg-pend" [style.width.%]="(pending / portal.maxPlayers) * 100"></span>
+        <span class="seg seg-inv" [style.width.%]="(invited / portal.maxPlayers) * 100"></span>
+      </div>
+      <ul class="legend">
+        <li><span class="dot ok"></span>{{ approved }} aprobadas</li>
+        <li><span class="dot pend"></span>{{ pending }} en revisión del staff</li>
+        <li><span class="dot inv"></span>{{ invited }} sin terminar registro</li>
+      </ul>
+      <p class="hint">Mínimo 7 aprobadas para jugar · máximo {{ portal.maxPlayers }}</p>
+    </div>
+
+    <app-team-code [code]="portal.code" />
+  </section>
+
+  <!-- ============ POR RESOLVER ============ -->
+  <section class="todo" aria-labelledby="todo-title">
+    <h2 id="todo-title" class="h">Por resolver</h2>
+    <ul class="todo-list">
+      @for (r of roster; track r.id) {
+        @if (r.status === 'invitada') {
+          <li class="todo-item t-pink">
+            <app-icon name="mail" [size]="20" />
+            <p><b>{{ r.name }}</b> no ha terminado su registro ni aceptado sus autorizaciones.</p>
+            <button type="button" class="btn btn-sm btn-outline"><app-icon name="whatsapp" [size]="16" /> Recordarle</button>
+          </li>
+        }
+      }
+      @for (w of warnings; track w.id) {
+        <li class="todo-item t-gold">
+          <span class="ycard" aria-hidden="true"></span>
+          <p><b>{{ w.name }}</b> lleva {{ w.yellowCards }} amarillas: a {{ suspensionAt - w.yellowCards }} de la suspensión.</p>
+        </li>
+      }
+      <li class="todo-item t-ink">
+        <app-icon name="clock" [size]="20" />
+        <p><b>{{ pending }} jugadoras</b> esperan la revisión del staff (menos de 48 h).</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ PLANTEL ============ -->
+  <section class="roster-section" aria-labelledby="roster-title">
+    <div class="roster-head">
+      <h2 id="roster-title" class="h">Mis jugadoras</h2>
+      <button type="button" class="btn btn-pink btn-sm"><app-icon name="plus" [size]="18" /> Agregar jugadora</button>
+    </div>
+    <p class="small muted roster-note">
+      <app-icon name="lock" [size]="14" /> Por privacidad no ves teléfonos ni contactos de emergencia: esos solo los ve el staff.
+      Si agregas a alguien tú, le llega un link para que ella acepte sus autorizaciones.
+    </p>
+
+    <ul class="roster">
+      @for (r of roster; track r.id) {
+        <li class="player" [class.is-invited]="r.status === 'invitada'">
+          <span class="dorsal" aria-hidden="true">{{ r.number }}</span>
+
+          <div class="who">
+            <p class="name">
+              {{ r.name }}
+              @if (r.captain) {
+                <span class="badge badge-gold">Capitana</span>
+              }
+            </p>
+            <p class="meta">
+              #{{ r.number }} · {{ r.position }} ·
+              {{ r.source === 'codigo' ? 'Se registró con el código' : 'La agregaste tú' }}
+            </p>
+          </div>
+
+          <div class="state">
+            @switch (r.status) {
+              @case ('aprobada') { <span class="badge badge-success">Aprobada</span> }
+              @case ('pendiente') { <span class="badge badge-warning">En revisión</span> }
+              @case ('invitada') { <span class="badge badge-danger">Falta registrarse</span> }
+              @case ('rechazada') { <span class="badge badge-danger">Rechazada</span> }
+            }
+          </div>
+
+          <ul class="flags" aria-label="Autorizaciones">
+            <li [class.on]="r.privacyAccepted" [title]="r.privacyAccepted ? 'Aceptó el aviso de privacidad' : 'Falta aceptar el aviso de privacidad'">
+              <app-icon [name]="r.privacyAccepted ? 'check' : 'x'" [size]="14" /> Aviso
+              <span class="sr-only">{{ r.privacyAccepted ? 'aceptado' : 'pendiente' }}</span>
+            </li>
+            <li [class.on]="r.imageAuthorized" [title]="r.imageAuthorized ? 'Autorizó uso de imagen' : 'No autorizó uso de imagen'">
+              <app-icon [name]="r.imageAuthorized ? 'check' : 'x'" [size]="14" /> Imagen
+              <span class="sr-only">{{ r.imageAuthorized ? 'autorizada' : 'no autorizada' }}</span>
+            </li>
+            <li [class.on]="r.isPublic">
+              <app-icon [name]="r.isPublic ? 'eye' : 'eye-off'" [size]="14" /> {{ r.isPublic ? 'Pública' : 'Privada' }}
+            </li>
+          </ul>
+
+          <div class="cards" aria-label="Tarjetas amarillas">
+            @for (c of cardsFor(r.yellowCards); track $index) {
+              <span class="ycard" aria-hidden="true"></span>
+            }
+            <span class="sr-only">{{ r.yellowCards }} amarillas</span>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="icon-btn" [attr.aria-label]="'Editar número o posición de ' + r.name">
+              <app-icon name="pencil" [size]="18" />
+            </button>
+            @if (!r.captain) {
+              <button type="button" class="icon-btn danger" [attr.aria-label]="'Dar de baja a ' + r.name">
+                <app-icon name="trash" [size]="18" />
+              </button>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- ============ PRÓXIMO PARTIDO ============ -->
+  <section class="next" aria-labelledby="next-title">
+    <h2 id="next-title" class="h">Su próximo partido</h2>
+    <app-match-card [match]="nextMatch" />
+  </section>
+</div>
+}

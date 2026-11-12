@@ -1,0 +1,433 @@
+/* =================== HERO =================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.hero-grid {
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
+}
+@media (min-width: 1000px) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-6);
+  }
+  .hero {
+    padding-block: var(--space-7) var(--space-9);
+  }
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-5) 0 var(--space-5);
+}
+.h-big {
+  font-size: var(--text-hero);
+  line-height: 0.84;
+  animation: rise 600ms var(--ease-out) both;
+}
+.h-big:nth-child(2) {
+  animation-delay: 80ms;
+  /* "fútbol," con contorno + sombra de tinta, como rótulo */
+  color: var(--paper-light);
+  -webkit-text-stroke: 3px var(--ink);
+  text-shadow: 6px 6px 0 var(--pink);
+}
+.h-marker {
+  align-self: flex-start;
+  margin-top: var(--space-3);
+  font-size: clamp(2rem, 5.4vw, 3.6rem);
+  text-transform: none;
+  transform: rotate(-3deg);
+  --r: -3deg;
+  animation: stamp-in 500ms var(--ease-stamp) both 260ms;
+}
+
+.lead {
+  max-width: 46ch;
+  margin-bottom: var(--space-5);
+  color: var(--ink);
+}
+
+.ctas {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.aside {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .aside {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-left: var(--space-2);
+  }
+  .aside .marker {
+    font-size: 1.6rem;
+    transform: rotate(-6deg);
+  }
+}
+
+/* Conteo tipo pizarrón: rayitas en mono */
+.tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-7) 0 0;
+}
+.tally div {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--ink);
+  background: var(--paper-light);
+}
+.tally div:nth-child(2) {
+  transform: rotate(-1.5deg);
+  background: var(--gold-400);
+}
+.tally dd {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1;
+}
+.tally dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ---- Arte: sol de cartel + escudo sticker + boleto ---- */
+.art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: min(470px, 104vw);
+  order: -1;
+}
+@media (min-width: 1000px) {
+  .art {
+    order: 0;
+    min-height: 560px;
+  }
+}
+
+/* Rayos de sol estilo cartel de sonidero (planos, nada de glow) */
+.sun {
+  position: absolute;
+  width: min(520px, 88vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background:
+    radial-gradient(circle, var(--pink) 0 30%, transparent 30.5%),
+    repeating-conic-gradient(var(--gold-500) 0 7.5deg, var(--paper-light) 7.5deg 15deg);
+  animation: spin 80s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sticker {
+  position: relative;
+  z-index: 1;
+  width: min(340px, 70vw);
+  height: auto;
+  transform: rotate(-7deg);
+  /* Recorte de sticker: borde blanco + sombra de tinta */
+  filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff)
+    drop-shadow(0 -4px 0 #fff) drop-shadow(7px 7px 0 var(--ink));
+  animation: stamp-in 600ms var(--ease-stamp) both 120ms;
+  --r: -7deg;
+}
+@media (min-width: 1000px) {
+  .sticker {
+    width: 420px;
+  }
+}
+
+.art .tape {
+  position: absolute;
+  z-index: 2;
+  width: 110px;
+  height: 30px;
+  padding: 0;
+  opacity: 0.9;
+}
+.t1 {
+  top: 12%;
+  left: 14%;
+  transform: rotate(-32deg);
+}
+.t2 {
+  top: 16%;
+  right: 12%;
+  transform: rotate(28deg);
+  background: var(--pink-100);
+}
+
+.ticket {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  width: min(330px, 86vw);
+  background: var(--paper-light);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+  transform: translateX(-50%) rotate(3deg);
+}
+@media (min-width: 1000px) {
+  .ticket {
+    left: auto;
+    right: -36px;
+    bottom: -24px;
+    transform: rotate(4deg);
+  }
+}
+.ticket-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+}
+.t-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--pink-600);
+}
+.t-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.t-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+.ticket-stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  border-left: 2px dashed var(--ink);
+  background: var(--pink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.t-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* =================== REGLAS DE LA CANCHA =================== */
+.rules-layout {
+  display: grid;
+  gap: var(--space-6);
+}
+@media (min-width: 1000px) {
+  .rules-layout {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+  .rules-intro {
+    position: sticky;
+    top: calc(var(--header-h) + 64px);
+  }
+}
+.statement {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.statement .highlight {
+  color: #fff;
+}
+.hl-gold {
+  --hl: var(--gold-500);
+}
+.statement .hl-gold {
+  color: var(--ink);
+}
+
+.rules {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+.rule {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-5);
+  align-items: start;
+  padding-block: var(--space-5);
+  border-top: 3px solid var(--ink);
+}
+.rule:last-child {
+  border-bottom: 3px solid var(--ink);
+}
+.rule-n {
+  min-width: 1.6em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 5rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  transition: color var(--dur);
+}
+.rule:hover .rule-n {
+  color: var(--pink);
+}
+.rule-title {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-2xl);
+}
+.rule p {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--color-ink-muted);
+}
+
+/* =================== LO MEJOR DEL DOMINGO =================== */
+.highlights {
+  display: grid;
+  gap: var(--space-7);
+  align-items: start;
+}
+@media (min-width: 1000px) {
+  .highlights {
+    grid-template-columns: 1.55fr 0.75fr;
+    gap: var(--space-6);
+  }
+}
+
+.reel {
+  position: relative;
+  justify-self: center;
+  width: min(340px, 100%);
+  padding: var(--space-3);
+  background: var(--paper-light);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+  transform: rotate(2deg);
+}
+.reel-tape {
+  position: absolute;
+  z-index: 2;
+  top: -14px;
+  left: 50%;
+  width: 90px;
+  height: 26px;
+  padding: 0;
+  transform: translateX(-50%) rotate(-4deg);
+}
+.reel-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+}
+.reel-title {
+  margin: 0;
+  font-family: var(--font-marker);
+  font-size: var(--text-xl);
+  color: var(--pink);
+}
+
+/* =================== EL ROL =================== */
+.rol {
+  position: relative;
+  overflow: hidden;
+}
+.rol::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 60%;
+  color: var(--pink);
+  background: var(--halftone);
+  opacity: 0.35;
+  -webkit-mask: radial-gradient(circle at 100% 0, #000, transparent 70%);
+  mask: radial-gradient(circle at 100% 0, #000, transparent 70%);
+}
+.rol-grid {
+  position: relative;
+  display: grid;
+  gap: var(--space-7);
+}
+@media (min-width: 1100px) {
+  .rol-grid {
+    grid-template-columns: 1.25fr 1fr;
+    align-items: start;
+  }
+}
+.tickets {
+  display: grid;
+  gap: var(--space-4);
+}
+.more {
+  margin-top: var(--space-5);
+}
+
+.tabla {
+  padding: var(--space-5);
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--gold-500);
+  transform: rotate(1deg);
+}
+.tabla .eyebrow {
+  color: var(--pink-600);
+}
+.tabla-title {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+.tabla .btn-ghost {
+  --btn-fg: var(--ink);
+}
+
+/* =================== ALIADAS =================== */
+.aliados-title {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-3xl);
+  text-align: center;
+}
+.aliados-title .marker {
+  font-size: 0.8em;
+  text-transform: none;
+}

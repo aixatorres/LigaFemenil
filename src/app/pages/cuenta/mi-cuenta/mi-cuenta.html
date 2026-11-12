@@ -1,0 +1,66 @@
+<!-- Selector de rol SOLO para la maqueta: muestra cómo cambia la cuenta -->
+<div class="demo-bar" role="region" aria-label="Vista de prueba">
+  <div class="container demo-inner">
+    <span class="demo-tag">Maqueta</span>
+    <span class="demo-text">Ver la cuenta como:</span>
+    <div class="demo-roles" role="radiogroup" aria-label="Rol de prueba">
+      @for (r of roles; track r.value) {
+        <button
+          type="button"
+          role="radio"
+          [attr.aria-checked]="session.role() === r.value"
+          (click)="session.setRole(r.value)"
+        >
+          {{ r.label }}
+        </button>
+      }
+    </div>
+  </div>
+</div>
+
+<header class="head" [style.--team]="team.color">
+  <div class="container head-inner">
+    <div class="identity">
+      <span class="dorsal" aria-hidden="true">{{ account.number }}</span>
+      <div>
+        <p class="eyebrow">Mi cuenta</p>
+        <h1>{{ account.name }}</h1>
+        <p class="meta">
+          <app-team-crest [team]="team" [size]="26" />
+          <span>{{ team.name }} · #{{ account.number }} · {{ account.position }}</span>
+        </p>
+        <p class="roles">
+          <span class="badge">Jugadora</span>
+          @if (session.isCaptain()) {
+            <span class="badge badge-gold">Capitana</span>
+          }
+          @if (session.isStaff()) {
+            <span class="badge badge-info">Staff</span>
+          }
+        </p>
+      </div>
+    </div>
+    <div class="head-actions">
+      @if (session.isStaff()) {
+        <a routerLink="/admin" class="btn btn-gold btn-sm"><app-icon name="dashboard" [size]="18" /> Panel de la liga</a>
+      }
+      <a routerLink="/entrar" class="btn btn-outline-light btn-sm"><app-icon name="log-out" [size]="18" /> Salir</a>
+    </div>
+  </div>
+</header>
+<app-rainbow-stripe [height]="10" [tilt]="-0.6" />
+
+<nav class="tabs" aria-label="Secciones de mi cuenta">
+  <div class="container tabs-inner">
+    @for (t of tabs(); track t.path) {
+      <a [routerLink]="t.path" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <app-icon [name]="t.icon" [size]="18" />
+        {{ t.label }}
+      </a>
+    }
+  </div>
+</nav>
+
+<div class="container content">
+  <router-outlet />
+</div>

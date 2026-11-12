@@ -1,0 +1,67 @@
+<p class="hello">
+  <span class="marker">¡Hola, {{ account.name.split(' ')[0] }}!</span>
+  <span class="hello-sub">Esto es lo que pasa en tu liga esta semana.</span>
+</p>
+
+<div class="grid">
+  <!-- Próximo partido -->
+  <section class="block next" aria-labelledby="next-title">
+    <h2 id="next-title" class="h">Tu próximo partido</h2>
+    <app-match-card [match]="nextMatch" />
+  </section>
+
+  <!-- Stats rápidas -->
+  <section class="block card mini-stats" aria-labelledby="stats-title">
+    <h2 id="stats-title" class="h">Tu temporada</h2>
+    <dl>
+      <div><dt>Goles</dt><dd>{{ player.stats.goles }}</dd></div>
+      <div><dt>Partidos</dt><dd>{{ player.stats.partidos }}</dd></div>
+      <div><dt>Minutos</dt><dd>{{ player.stats.minutos }}</dd></div>
+      <div><dt>Amarillas</dt><dd>{{ player.stats.amarillas }}</dd></div>
+    </dl>
+    <a routerLink="../estadisticas" class="btn btn-ghost btn-sm">Ver todo <app-icon name="arrow-right" [size]="16" /></a>
+  </section>
+
+  <!-- Privacidad -->
+  <section class="block card privacy" aria-labelledby="priv-title">
+    <h2 id="priv-title" class="h">Así te ven en el sitio</h2>
+    <ul class="priv-list">
+      <li [class.on]="account.privacy.showName">
+        <app-icon [name]="account.privacy.showName ? 'eye' : 'eye-off'" [size]="18" />
+        Nombre {{ account.privacy.showName ? 'visible' : 'oculto' }}
+      </li>
+      <li [class.on]="account.privacy.showPhoto">
+        <app-icon [name]="account.privacy.showPhoto ? 'image' : 'eye-off'" [size]="18" />
+        Foto {{ account.privacy.showPhoto ? 'visible' : 'oculta' }}
+      </li>
+      <li [class.on]="account.privacy.imageAuthorized">
+        <app-icon [name]="account.privacy.imageAuthorized ? 'check' : 'x'" [size]="18" />
+        Uso de imagen {{ account.privacy.imageAuthorized ? 'autorizado' : 'no autorizado' }}
+      </li>
+    </ul>
+    <a routerLink="../privacidad" class="btn btn-outline btn-sm">Cambiar mi privacidad</a>
+  </section>
+
+  <!-- Solo capitana -->
+  @if (session.isCaptain()) {
+    <section class="block role-card captain" aria-labelledby="cap-title">
+      <p class="role-kicker">Eres capitana</p>
+      <h2 id="cap-title" class="h">Tu equipo</h2>
+      <p>
+        <b>{{ rosterCount }} de {{ portal.maxPlayers }}</b> jugadoras ·
+        <b>{{ toFix }}</b> cosas por resolver · código <b class="code">{{ portal.code }}</b>
+      </p>
+      <a routerLink="../equipo" class="btn btn-gold">Ir a Mi equipo <app-icon name="arrow-right" /></a>
+    </section>
+  }
+
+  <!-- Solo staff -->
+  @if (session.isStaff()) {
+    <section class="block role-card staff" aria-labelledby="staff-title">
+      <p class="role-kicker">Eres staff</p>
+      <h2 id="staff-title" class="h">Panel de la liga</h2>
+      <p><b>4</b> registros por aprobar · <b>1</b> partido sin capturar de la J6.</p>
+      <a routerLink="/admin" class="btn btn-pink">Abrir panel <app-icon name="arrow-right" /></a>
+    </section>
+  }
+</div>

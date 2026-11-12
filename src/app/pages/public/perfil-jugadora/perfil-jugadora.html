@@ -1,0 +1,68 @@
+<header class="hero" [style.--team-color]="team().color">
+  <div class="container">
+    <a [routerLink]="['/equipos', team().id]" class="back">
+      <app-icon name="chevron-right" [size]="18" class="flip" /> {{ team().name }}
+    </a>
+
+    <div class="profile">
+      <div class="photo" [class.private]="!player().isPublic" aria-hidden="true">
+        @if (player().isPublic) {
+          <span class="dorsal">{{ player().number }}</span>
+        } @else {
+          <app-icon name="lock" [size]="48" />
+        }
+      </div>
+
+      <div class="info">
+        <p class="eyebrow">{{ player().position }}</p>
+        <h1>{{ player().isPublic ? player().name : 'Perfil privado' }}</h1>
+        <p class="team">
+          <app-team-crest [team]="team()" [size]="36" />
+          <span>{{ team().name }}</span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span class="num">#{{ player().number }}</span>
+        </p>
+        @if (!player().isPublic) {
+          <p class="private-note">
+            <app-icon name="eye-off" [size]="18" />
+            Esta jugadora eligió no mostrar su nombre ni su foto. Sus estadísticas siguen contando para su equipo.
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+</header>
+<app-rainbow-stripe [height]="6" />
+
+<section class="section" aria-labelledby="stats-title">
+  <div class="container">
+    <h2 id="stats-title">Estadísticas · Torneo Otoño 2026</h2>
+    <dl class="stats">
+      @for (s of stats(); track s.label) {
+        <div [class]="'stat tone-' + s.tone">
+          <app-icon [name]="s.icon" [size]="22" [fill]="s.fill" />
+          <dt>{{ s.label }}</dt>
+          <dd class="num">{{ s.value }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+@if (player().isPublic) {
+  <section class="section section-cream" aria-labelledby="awards-title">
+    <div class="container">
+      <h2 id="awards-title">Reconocimientos</h2>
+      <ul class="awards">
+        @for (a of player().awards; track a) {
+          <li class="award">
+            <span class="award-icon" aria-hidden="true"><app-icon name="trophy" [size]="24" /></span>
+            <span>{{ a }}</span>
+          </li>
+        } @empty {
+          <li class="muted">Aún sin reconocimientos esta temporada. ¡Vamos por el primero!</li>
+        }
+      </ul>
+    </div>
+  </section>
+}

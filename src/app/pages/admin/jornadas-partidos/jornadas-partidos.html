@@ -1,0 +1,112 @@
+<app-admin-page-title title="Jornadas y partidos" subtitle="Crea jornadas, genera el rol y asigna horarios.">
+  <button type="button" class="btn btn-navy btn-sm"><app-icon name="plus" [size]="18" /> Crear jornada</button>
+</app-admin-page-title>
+
+<div class="top">
+  <!-- Torneo -->
+  <section class="card" aria-labelledby="torneo-title">
+    <h2 id="torneo-title" class="h">Torneo</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label class="label" for="torneo">Torneo activo</label>
+        <select class="select" id="torneo">
+          <option>Otoño 2026</option>
+          <option>Primavera 2026</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="label" for="inicio">Primer domingo</label>
+        <input class="input" id="inicio" type="date" value="2026-10-05" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Generador round robin -->
+  <section class="card rr" aria-labelledby="rr-title">
+    <div class="rr-head">
+      <span class="rr-icon" aria-hidden="true"><app-icon name="shuffle" [size]="26" /></span>
+      <div>
+        <h2 id="rr-title" class="h">Rol todas contra todas</h2>
+        <p class="small muted">Genera automáticamente todos los enfrentamientos del torneo.</p>
+      </div>
+    </div>
+    <dl class="rr-stats">
+      <div><dt>Equipos</dt><dd class="num">{{ teamsCount }}</dd></div>
+      <div><dt>Jornadas</dt><dd class="num">{{ totalJornadas }}</dd></div>
+      <div><dt>Partidos / jornada</dt><dd class="num">{{ perJornada }}</dd></div>
+    </dl>
+    <label class="check">
+      <input type="checkbox" />
+      <span>Ida y vuelta (duplica las jornadas)</span>
+    </label>
+    <button type="button" class="btn btn-gold btn-block"><app-icon name="shuffle" /> Generar rol</button>
+  </section>
+</div>
+
+<!-- Jornadas -->
+<h2 class="section-h">Calendario de jornadas</h2>
+<div class="jornadas">
+  @for (j of jornadas; track j.n) {
+    <details class="card jornada" [open]="j.open">
+      <summary>
+        <span class="j-n">J{{ j.n }}</span>
+        <span class="j-info">
+          <span class="j-title">Jornada {{ j.n }}</span>
+          <span class="small muted">{{ j.date }}</span>
+        </span>
+        @switch (j.status) {
+          @case ('Próxima') { <span class="badge badge-info">Próxima</span> }
+          @case ('Por cerrar') { <span class="badge badge-warning">Por cerrar</span> }
+          @default { <span class="badge badge-success">Cerrada</span> }
+        }
+        <app-icon name="chevron-down" class="chev" />
+      </summary>
+
+      @if (j.matches.length) {
+        <ul class="matches">
+          @for (m of j.matches; track m.id) {
+            <li class="match">
+              <span class="teams">
+                <app-team-crest [team]="team(m.homeId)" [size]="32" />
+                <span class="t">{{ team(m.homeId).name }}</span>
+                <span class="muted vs">vs</span>
+                <span class="t">{{ team(m.awayId).name }}</span>
+                <app-team-crest [team]="team(m.awayId)" [size]="32" />
+              </span>
+
+              <span class="sched">
+                <label class="sr-only" [for]="'hora-' + m.id">Horario</label>
+                <select class="select" [id]="'hora-' + m.id">
+                  @for (t of times; track t) {
+                    <option [selected]="t === m.time">{{ t }}</option>
+                  }
+                </select>
+                <label class="sr-only" [for]="'cancha-' + m.id">Cancha</label>
+                <select class="select" [id]="'cancha-' + m.id">
+                  <option>Cancha 1</option>
+                  <option>Cancha 2</option>
+                </select>
+              </span>
+
+              <span class="m-status">
+                @switch (m.status) {
+                  @case ('finalizado') {
+                    <span class="score num">{{ m.homeScore }} – {{ m.awayScore }}</span>
+                  }
+                  @case ('sin-capturar') {
+                    <a routerLink="/admin/captura" class="btn btn-gold btn-sm">Capturar</a>
+                  }
+                  @default {
+                    <span class="badge">Programado</span>
+                  }
+                }
+              </span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="small muted closed">Jornada cerrada. Resultados capturados.</p>
+      }
+    </details>
+  }
+</div>

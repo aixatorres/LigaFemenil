@@ -1,0 +1,70 @@
+<div class="layout">
+  <div>
+    <h2 class="h">Mi privacidad</h2>
+    <p class="lead">
+      Tú decides qué se publica de ti. Puedes cambiarlo cuando quieras y aplica de inmediato.
+      <b>Nadie más puede cambiarlo por ti</b>, ni tu capitana ni el staff.
+    </p>
+
+    <section class="card panel" aria-label="Qué se publica de mí">
+      <app-toggle-row
+        icon="user"
+        title="Mostrar mi nombre"
+        description="Si lo apagas, en el sitio solo apareces como tu número y posición."
+        [checked]="privacy.showName"
+      />
+      <app-toggle-row
+        icon="image"
+        title="Mostrar mi foto de perfil"
+        description="La foto que aparece en tu estampa de jugadora."
+        [checked]="privacy.showPhoto"
+      />
+      <app-toggle-row
+        icon="instagram"
+        title="Autorizo uso de mi imagen"
+        description="Fotos y videos de jornadas y convivencias en redes y en la galería."
+        [checked]="privacy.imageAuthorized"
+      />
+      <app-toggle-row
+        icon="trophy"
+        title="Aparecer en reconocimientos"
+        description="Que te puedan nombrar MVP de la jornada en la página de inicio."
+        [checked]="true"
+      />
+    </section>
+
+    <section class="card never" aria-labelledby="never-title">
+      <h3 id="never-title"><app-icon name="lock" [size]="20" /> Esto nunca se publica</h3>
+      <ul>
+        <li>Tu teléfono y tu correo</li>
+        <li>Tu contacto de emergencia</li>
+        <li>Tu fecha de nacimiento</li>
+      </ul>
+      <p class="small muted">Solo lo ve el staff de la liga, por si hay una emergencia en la cancha.</p>
+    </section>
+
+    <section class="legal" aria-labelledby="legal-title">
+      <h3 id="legal-title">Tus documentos y derechos</h3>
+      <p class="small">
+        <app-icon name="check-circle" [size]="16" /> Aceptaste el
+        <a routerLink="/aviso-de-privacidad">Aviso de privacidad</a> el 2 de septiembre de 2026.
+      </p>
+      <div class="legal-actions">
+        <button type="button" class="btn btn-outline btn-sm"><app-icon name="download" [size]="16" /> Descargar mis datos</button>
+        <button type="button" class="btn btn-ghost btn-sm">Solicitar baja de mi cuenta</button>
+      </div>
+    </section>
+  </div>
+
+  <aside class="preview" aria-label="Vista previa de tu perfil">
+    <p class="preview-kicker">Así te ve el público</p>
+    <div class="preview-card">
+      <app-player-card [player]="privacy.showName ? asPublic : asPrivate" />
+    </div>
+    <p class="marker preview-note">↑ así te ves hoy</p>
+    <p class="small muted">Si apagas “Mostrar mi nombre”, se ve así:</p>
+    <div class="preview-card small-card">
+      <app-player-card [player]="asPrivate" />
+    </div>
+  </aside>
+</div>

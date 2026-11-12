@@ -1,0 +1,120 @@
+<app-page-header
+  eyebrow="Entrenamiento personal"
+  title="Entrena con quien entiende tu juego"
+  note="sin juicios, a tu ritmo"
+  subtitle="Sesiones de fútbol y preparación física para jugadoras de todos los niveles."
+>
+  <div class="header-ctas">
+    <a href="#" class="btn btn-whatsapp btn-lg"><app-icon name="whatsapp" /> Escríbeme por WhatsApp</a>
+  </div>
+</app-page-header>
+
+<!-- DESCRIPCIÓN -->
+<section class="section" aria-labelledby="sobre">
+  <div class="container split">
+    <app-media-placeholder ratio="4 / 5" tone="gold" caption="Foto de la entrenadora" label="Foto de la entrenadora" />
+    <div>
+      <p class="eyebrow">Sobre el entrenamiento</p>
+      <h2 id="sobre">Mejora tu juego, cuida tu cuerpo</h2>
+      <p>
+        Entrenamientos diseñados por la coach de la liga para que juegues con más confianza cada domingo. Trabajamos
+        técnica, condición física y lectura de juego, siempre respetando tu ritmo y tus objetivos.
+      </p>
+      <p class="muted">[Texto provisional: certificaciones, experiencia y enfoque de la entrenadora.]</p>
+      <ul class="facts">
+        <li><app-icon name="map-pin" [size]="18" /> Cancha de la liga o a domicilio</li>
+        <li><app-icon name="clock" [size]="18" /> Lunes a sábado, mañana y tarde</li>
+        <li><app-icon name="users" [size]="18" /> Individual, en grupo o equipo completo</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="section section-cream" aria-label="Beneficios">
+  <div class="container">
+    <app-section-title eyebrow="Beneficios" title="¿Qué vas a trabajar?" [center]="true" />
+    <div class="grid-4">
+      @for (b of benefits; track b.title) {
+        <article class="card benefit">
+          <span class="b-icon" aria-hidden="true"><app-icon [name]="b.icon" [size]="24" /></span>
+          <h3>{{ b.title }}</h3>
+          <p class="muted">{{ b.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- MODALIDADES -->
+<section class="section" aria-label="Modalidades">
+  <div class="container">
+    <app-section-title eyebrow="Modalidades" title="Elige cómo entrenar" [center]="true" />
+    <div class="grid-3 plans">
+      @for (p of plans; track p.name) {
+        <article class="card plan" [class.featured]="p.featured">
+          @if (p.featured) {
+            <span class="badge badge-gold ribbon">Más pedido</span>
+          }
+          <h3>{{ p.name }}</h3>
+          <p class="muted detail">{{ p.detail }}</p>
+          <ul>
+            @for (it of p.items; track it) {
+              <li><app-icon name="check" [size]="18" /> {{ it }}</li>
+            }
+          </ul>
+          <a href="#" class="btn btn-block" [class.btn-gold]="p.featured" [class.btn-outline]="!p.featured">Pedir informes</a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="section section-dark" aria-label="Fotos y videos de entrenamiento">
+  <div class="container">
+    <p class="eyebrow">En acción</p>
+    <h2>Fotos y videos</h2>
+    <div class="grid-3 media">
+      <app-media-placeholder ratio="1 / 1" caption="Trabajo técnico" label="Foto de entrenamiento técnico" />
+      <app-media-placeholder ratio="1 / 1" kind="video" tone="gold" caption="Circuito de velocidad" label="Video de circuito de velocidad" />
+      <app-media-placeholder ratio="1 / 1" tone="green" caption="Entrenamiento grupal" label="Foto de entrenamiento grupal" />
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" aria-labelledby="contacto-ent">
+  <div class="container contact">
+    <div>
+      <p class="eyebrow">Agenda tu sesión</p>
+      <h2 id="contacto-ent">¿Lista para empezar?</h2>
+      <p class="lead">Escríbeme por WhatsApp o déjame tus datos y te contacto en menos de 24 horas.</p>
+      <a href="#" class="btn btn-whatsapp btn-lg"><app-icon name="whatsapp" /> WhatsApp</a>
+    </div>
+
+    <form class="card form" (submit)="$event.preventDefault()">
+      <div class="field">
+        <label class="label" for="ent-nombre">Nombre</label>
+        <input class="input" id="ent-nombre" type="text" autocomplete="name" />
+      </div>
+      <div class="field">
+        <label class="label" for="ent-tel">WhatsApp</label>
+        <input class="input" id="ent-tel" type="tel" inputmode="tel" autocomplete="tel" />
+      </div>
+      <div class="field">
+        <label class="label" for="ent-modalidad">Modalidad</label>
+        <select class="select" id="ent-modalidad">
+          @for (p of plans; track p.name) {
+            <option>{{ p.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label class="label" for="ent-msg">¿Qué te gustaría trabajar?</label>
+        <textarea class="textarea" id="ent-msg"></textarea>
+      </div>
+      <button type="submit" class="btn btn-navy btn-block">Enviar</button>
+    </form>
+  </div>
+</section>

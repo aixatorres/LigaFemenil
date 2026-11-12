@@ -1,0 +1,82 @@
+<app-page-header
+  eyebrow="Torneo Otoño 2026"
+  title="Jornadas"
+  note="cada domingo, sin falta"
+  subtitle="Calendario, resultados, tabla de posiciones y los mejores momentos de cada domingo."
+>
+  <nav class="anchors" aria-label="Secciones de la página">
+    <a [routerLink]="[]" fragment="calendario">Calendario</a>
+    <a [routerLink]="[]" fragment="resultados">Resultados</a>
+    <a [routerLink]="[]" fragment="tabla">Tabla</a>
+    <a [routerLink]="[]" fragment="videos">Videos</a>
+  </nav>
+</app-page-header>
+
+<!-- CALENDARIO -->
+<section id="calendario" class="section" aria-labelledby="cal-title">
+  <div class="container">
+    <div class="row-between">
+      <div>
+        <p class="eyebrow">Próxima · Domingo 16 de noviembre</p>
+        <h2 id="cal-title">Calendario</h2>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm"><app-icon name="download" [size]="18" /> Agregar a mi calendario</a>
+    </div>
+
+    <div class="chips jornada-chips" role="group" aria-label="Elegir jornada">
+      @for (j of jornadas; track j) {
+        <button type="button" class="chip" [attr.aria-pressed]="j === 7">J{{ j }}</button>
+      }
+    </div>
+
+    <div class="grid-2">
+      @for (m of upcoming; track m.id) {
+        <app-match-card [match]="m" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="resultados" class="section section-dark" aria-labelledby="res-title">
+  <div class="container">
+    <p class="eyebrow">Jornada {{ selected }} · Domingo 9 de noviembre</p>
+    <h2 id="res-title">Resultados</h2>
+    <div class="grid-2 results">
+      @for (m of results; track m.id) {
+        <app-match-card [match]="m" [dark]="true" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- TABLA -->
+<section id="tabla" class="section" aria-labelledby="tabla-title">
+  <div class="container">
+    <div class="row-between">
+      <div>
+        <p class="eyebrow">Después de 6 jornadas</p>
+        <h2 id="tabla-title">Tabla de posiciones</h2>
+      </div>
+    </div>
+    <app-standings-table [teams]="table" />
+    <p class="small muted legend">
+      Victoria = 3 pts · Empate = 1 pt. Desempate: diferencia de goles, luego goles a favor.
+    </p>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos" class="section section-cream" aria-labelledby="videos-title">
+  <div class="container">
+    <app-section-title eyebrow="Desde Instagram" title="Videos de la jornada" />
+    <div class="grid-3">
+      @for (v of videos; track v) {
+        <article class="card video">
+          <app-media-placeholder kind="video" ratio="9 / 16" [caption]="v" [label]="'Video de Instagram: ' + v" />
+          <a href="#" class="btn btn-ghost btn-sm">Ver en Instagram <app-icon name="external" [size]="16" /></a>
+        </article>
+      }
+    </div>
+  </div>
+</section>

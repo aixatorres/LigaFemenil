@@ -1,0 +1,45 @@
+<article class="ticket" [class.on-dark]="dark()">
+  <div class="main">
+    <div class="team">
+      <app-team-crest [team]="home()" [size]="46" />
+      <span class="name">{{ home().name }}</span>
+    </div>
+
+    <div class="score" [class.played]="played()">
+      @if (played()) {
+        <span class="sr-only">Marcador:</span>
+        <span>{{ match().homeScore }}</span>
+        <span class="dash" aria-hidden="true">-</span>
+        <span>{{ match().awayScore }}</span>
+      } @else {
+        <span class="vs">vs</span>
+      }
+    </div>
+
+    <div class="team">
+      <app-team-crest [team]="away()" [size]="46" />
+      <span class="name">{{ away().name }}</span>
+    </div>
+  </div>
+
+  <div class="stub">
+    <span class="j">J{{ match().jornada }}</span>
+    <span class="line"><app-icon name="calendar" [size]="14" />{{ match().date }}</span>
+    <span class="line"><app-icon name="clock" [size]="14" />{{ match().time }}</span>
+    <span class="line"><app-icon name="map-pin" [size]="14" />{{ match().field }}</span>
+    @switch (match().status) {
+      @case ('finalizado') {
+        <span class="status s-final">Final</span>
+      }
+      @case ('en-vivo') {
+        <span class="status s-live">En vivo</span>
+      }
+      @case ('sin-capturar') {
+        <span class="status s-pending">Pendiente</span>
+      }
+      @default {
+        <span class="status">Admisión libre</span>
+      }
+    }
+  </div>
+</article>

@@ -1,0 +1,32 @@
+@if (player().isPublic) {
+  <a class="estampa" [routerLink]="['/jugadoras', player().id]">
+    <span class="frame">
+      <span class="photo" aria-hidden="true">
+        <span class="dorsal">{{ player().number }}</span>
+        <span class="pos-tag">{{ player().position }}</span>
+      </span>
+      <span class="band">
+        <span class="name">{{ player().name }}</span>
+        <span class="team">{{ team().short }}</span>
+      </span>
+      <span class="stats">
+        <span><b>{{ player().stats.goles }}</b> goles</span>
+        <span><b>{{ player().stats.minutos }}</b> min</span>
+      </span>
+    </span>
+  </a>
+} @else {
+  <div class="estampa private">
+    <span class="frame">
+      <span class="photo" aria-hidden="true">
+        <app-icon name="lock" [size]="40" />
+        <span class="pos-tag">{{ player().position }}</span>
+      </span>
+      <span class="band">
+        <span class="name">#{{ player().number }} · Privado</span>
+        <span class="team">{{ team().short }}</span>
+      </span>
+      <span class="stats"><span>Eligió no publicar su perfil</span></span>
+    </span>
+  </div>
+}

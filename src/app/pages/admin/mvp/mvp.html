@@ -1,0 +1,80 @@
+<app-admin-page-title title="MVP y reconocimientos" subtitle="Elige a la jugadora de la jornada. Se publica sola en Inicio.">
+  <label class="sr-only" for="mvp-jornada">Jornada</label>
+  <select class="select jornada-select" id="mvp-jornada">
+    <option>Jornada 6</option>
+    <option>Jornada 5</option>
+  </select>
+</app-admin-page-title>
+
+<div class="layout">
+  <div class="left">
+    <!-- Candidatas -->
+    <fieldset class="candidates">
+      <legend class="h">Candidatas · Jornada 6</legend>
+      <p class="small muted">Sugeridas por goles y minutos de la jornada. Solo aparecen jugadoras con perfil público.</p>
+      <div class="cand-grid">
+        @for (p of candidates; track p.id; let first = $first) {
+          <label class="cand">
+            <input type="radio" name="mvp" [checked]="first" />
+            <span class="cand-body">
+              <app-team-crest [team]="team(p.teamId)" [size]="40" />
+              <span class="cand-info">
+                <span class="cand-name">{{ p.name }}</span>
+                <span class="small muted">{{ team(p.teamId).name }} · #{{ p.number }}</span>
+                <span class="cand-stats">
+                  <span><app-icon name="ball" [size]="14" /> {{ p.stats.goles }}</span>
+                  <span><app-icon name="clock" [size]="14" /> {{ p.stats.minutos }}'</span>
+                </span>
+              </span>
+              <span class="check-mark" aria-hidden="true"><app-icon name="check" [size]="18" /></span>
+            </span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <div class="card">
+      <div class="field">
+        <label class="label" for="mvp-motivo">¿Por qué es la MVP?</label>
+        <textarea class="textarea" id="mvp-motivo">Doblete y una asistencia en la victoria 3–1 ante Tormenta Violeta.</textarea>
+        <span class="hint">Aparecerá como cita en la tarjeta de Inicio.</span>
+      </div>
+      <div class="field photo-field">
+        <label class="label" for="mvp-foto">Foto (opcional)</label>
+        <input class="input" id="mvp-foto" type="file" accept="image/*" />
+        <span class="hint">Solo si la jugadora autorizó el uso de su imagen.</span>
+      </div>
+      <div class="publish">
+        <button type="button" class="btn btn-outline">Guardar borrador</button>
+        <button type="button" class="btn btn-gold"><app-icon name="star" /> Publicar MVP</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <section aria-labelledby="preview-title">
+      <h2 id="preview-title" class="h"><app-icon name="eye" [size]="20" /> Vista previa en Inicio</h2>
+      <app-mvp-card
+        [player]="selected"
+        [jornada]="6"
+        reason="Doblete y una asistencia en la victoria 3–1 ante Tormenta Violeta."
+      />
+    </section>
+
+    <section class="card" aria-labelledby="hist-title">
+      <h2 id="hist-title" class="h">MVPs anteriores</h2>
+      <ol class="history">
+        @for (h of history; track h.jornada) {
+          <li>
+            <span class="j num">J{{ h.jornada }}</span>
+            <span class="who">
+              <span class="hn">{{ h.name }}</span>
+              <span class="small muted">{{ h.team }}</span>
+            </span>
+            <app-icon name="trophy" [size]="18" class="trophy" />
+          </li>
+        }
+      </ol>
+    </section>
+  </div>
+</div>

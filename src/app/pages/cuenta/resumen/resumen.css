@@ -1,0 +1,119 @@
+.hello {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-6);
+}
+.hello .marker {
+  font-size: clamp(2rem, 5vw, 3rem);
+  transform: rotate(-2deg);
+}
+.hello-sub {
+  color: var(--color-ink-muted);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
+.h {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-2xl);
+}
+
+.mini-stats dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+}
+.mini-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: var(--space-3);
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+.mini-stats dt {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.mini-stats dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+}
+.mini-stats div:first-child {
+  background: var(--gold-400);
+}
+
+.priv-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+.priv-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 2px dashed var(--color-border-strong);
+  color: var(--color-ink-muted);
+  font-weight: 600;
+}
+.priv-list li.on {
+  border-style: solid;
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.role-card {
+  padding: var(--space-5);
+  border: 3px solid var(--ink);
+  box-shadow: var(--shadow-lg);
+}
+.role-card p {
+  margin-bottom: var(--space-4);
+}
+.role-kicker {
+  display: inline-block;
+  margin: 0 0 var(--space-2) !important;
+  padding: 2px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.captain {
+  background: var(--pink);
+  color: #fff;
+  transform: rotate(-0.6deg);
+}
+.captain .h {
+  text-shadow: 3px 3px 0 var(--ink);
+}
+.code {
+  font-family: var(--font-mono);
+  padding: 0 4px;
+  background: var(--paper-light);
+  color: var(--ink);
+}
+.staff {
+  background: var(--gold-500);
+  transform: rotate(0.6deg);
+}

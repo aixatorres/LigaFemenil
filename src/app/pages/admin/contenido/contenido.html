@@ -1,0 +1,111 @@
+<app-admin-page-title title="Contenido del sitio" subtitle="Edita textos, banners, patrocinadores y galería sin tocar código.">
+  <button type="button" class="btn btn-gold btn-sm"><app-icon name="check" [size]="18" /> Guardar cambios</button>
+</app-admin-page-title>
+
+<nav class="chips tabs" aria-label="Secciones de contenido">
+  <a class="chip is-active" [routerLink]="[]" fragment="textos">Textos</a>
+  <a class="chip" [routerLink]="[]" fragment="banners">Banners</a>
+  <a class="chip" [routerLink]="[]" fragment="patrocinadores">Patrocinadores</a>
+  <a class="chip" [routerLink]="[]" fragment="galeria">Galería</a>
+</nav>
+
+<div class="sections">
+  <!-- Textos -->
+  <section id="textos" class="card" aria-labelledby="t-title">
+    <h2 id="t-title" class="h"><app-icon name="file" [size]="20" /> Textos de Inicio</h2>
+    <div class="form-grid">
+      <div class="field span-2">
+        <label class="label" for="c-slogan">Slogan del hero</label>
+        <input class="input" id="c-slogan" type="text" value="Más que fútbol, somos una comunidad" />
+      </div>
+      <div class="field span-2">
+        <label class="label" for="c-intro">Texto de bienvenida</label>
+        <textarea class="textarea" id="c-intro">Cada domingo nos juntamos a jugar, a echarnos porras y a construir un espacio seguro para todas.</textarea>
+      </div>
+      <div class="field">
+        <label class="label" for="c-jugadoras">Jugadoras (cifra)</label>
+        <input class="input" id="c-jugadoras" type="text" value="124+" />
+      </div>
+      <div class="field">
+        <label class="label" for="c-seguidores">Seguidores (cifra)</label>
+        <input class="input" id="c-seguidores" type="text" value="8.4k" />
+      </div>
+      <div class="field span-2">
+        <label class="label" for="c-video">Último video del domingo (URL de Instagram)</label>
+        <input class="input" id="c-video" type="url" placeholder="https://www.instagram.com/reel/…" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Banners -->
+  <section id="banners" class="card" aria-labelledby="b-title">
+    <div class="card-title">
+      <h2 id="b-title" class="h"><app-icon name="megaphone" [size]="20" /> Banners</h2>
+      <button type="button" class="btn btn-outline btn-sm"><app-icon name="plus" [size]="18" /> Nuevo banner</button>
+    </div>
+    <ul class="banner-list">
+      @for (b of banners; track b.title; let i = $index) {
+        <li class="banner">
+          <app-media-placeholder ratio="16 / 6" [tone]="i ? 'green' : 'gold'" label="Imagen del banner" />
+          <div class="banner-body">
+            <label class="sr-only" [for]="'banner-' + i">Título del banner</label>
+            <input class="input" [id]="'banner-' + i" type="text" [value]="b.title" />
+            <div class="row-between">
+              <label class="switch">
+                <input type="checkbox" role="switch" [checked]="b.active" />
+                <span class="track" aria-hidden="true"></span>
+                <span>{{ b.active ? 'Visible en Inicio' : 'Oculto' }}</span>
+              </label>
+              <button type="button" class="btn btn-ghost btn-icon" aria-label="Eliminar banner">
+                <app-icon name="trash" [size]="18" />
+              </button>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Patrocinadores -->
+  <section id="patrocinadores" class="card" aria-labelledby="p-title">
+    <div class="card-title">
+      <h2 id="p-title" class="h"><app-icon name="handshake" [size]="20" /> Patrocinadores</h2>
+      <button type="button" class="btn btn-outline btn-sm"><app-icon name="plus" [size]="18" /> Agregar</button>
+    </div>
+    <ul class="sponsor-list">
+      @for (s of sponsors; track s.name) {
+        <li>
+          <span class="logo-box" aria-hidden="true"><app-icon name="image" [size]="20" /></span>
+          <span class="s-name">{{ s.name }}</span>
+          <span class="badge" [class.badge-gold]="s.tier === 'Principal'">{{ s.tier }}</span>
+          <button type="button" class="btn btn-ghost btn-icon" [attr.aria-label]="'Editar ' + s.name">
+            <app-icon name="pencil" [size]="18" />
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Galería -->
+  <section id="galeria" class="card" aria-labelledby="g-title">
+    <h2 id="g-title" class="h"><app-icon name="image" [size]="20" /> Galería</h2>
+    <label class="dropzone" for="g-upload">
+      <app-icon name="upload" [size]="32" />
+      <span class="dz-title">Arrastra fotos o videos aquí</span>
+      <span class="small muted">o toca para elegir archivos · JPG, PNG, MP4</span>
+      <input id="g-upload" class="sr-only" type="file" multiple accept="image/*,video/*" />
+    </label>
+    <div class="alert alert-warning">
+      <app-icon name="alert" [size]="18" />
+      <p>Antes de publicar, confirma que las jugadoras que aparecen autorizaron el uso de su imagen.</p>
+    </div>
+    <ul class="thumbs">
+      @for (g of gallery; track g.title; let i = $index) {
+        <li>
+          <app-media-placeholder [kind]="g.kind" ratio="1 / 1" [tone]="tones[i % 3]" [label]="g.title" />
+          <span class="thumb-cap small">{{ g.title }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

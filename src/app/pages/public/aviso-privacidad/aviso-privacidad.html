@@ -1,0 +1,98 @@
+<app-page-header
+  eyebrow="Legal"
+  title="Aviso de privacidad"
+  subtitle="Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares."
+/>
+
+<section class="section" aria-label="Contenido del aviso de privacidad">
+  <div class="container layout">
+    <nav class="toc" aria-label="Índice del aviso">
+      <p class="toc-title">Contenido</p>
+      <ol>
+        @for (s of sections; track s.id) {
+          <li><a [routerLink]="[]" [fragment]="s.id">{{ s.title }}</a></li>
+        }
+      </ol>
+    </nav>
+
+    <article class="legal">
+      <p class="updated">Última actualización: [fecha]</p>
+
+      <div class="alert alert-warning draft">
+        <p><strong>Borrador.</strong> Los datos entre [corchetes] deben completarse y el texto debe revisarse con asesoría legal antes de publicarse.</p>
+      </div>
+
+      <h2 id="responsable">1. Responsable</h2>
+      <p>
+        [Nombre o razón social], con domicilio en [domicilio completo], es responsable del tratamiento de los datos
+        personales que nos proporcionas como integrante, aspirante, patrocinadora o visitante de la Liga de Fútbol
+        Mujeres Diversas México (“la Liga”). Contacto: [correo de privacidad].
+      </p>
+
+      <h2 id="datos">2. Datos personales que recabamos</h2>
+      <ul>
+        <li><strong>Identificación:</strong> nombre, fecha de nacimiento, número de playera, posición y equipo.</li>
+        <li><strong>Contacto:</strong> teléfono, WhatsApp y correo electrónico.</li>
+        <li><strong>Contacto de emergencia:</strong> nombre y teléfono de una persona de tu confianza.</li>
+        <li><strong>Imagen:</strong> fotografías y videos tomados durante jornadas y convivencias, solo si lo autorizas.</li>
+        <li><strong>Desempeño deportivo:</strong> partidos, minutos, goles, tarjetas y reconocimientos.</li>
+      </ul>
+      <p>
+        [Indicar si se recaban datos sensibles, por ejemplo información de salud relevante para emergencias, y en ese
+        caso solicitar consentimiento expreso y por escrito.]
+      </p>
+
+      <h2 id="finalidades">3. Finalidades</h2>
+      <p><strong>Finalidades primarias</strong> (necesarias para tu participación):</p>
+      <ul>
+        <li>Registrar y validar a jugadoras y equipos.</li>
+        <li>Organizar jornadas, calendarios y estadísticas del torneo.</li>
+        <li>Contactarte a ti o a tu contacto de emergencia en caso de accidente.</li>
+      </ul>
+      <p><strong>Finalidades secundarias</strong> (puedes negarte sin afectar tu participación):</p>
+      <ul>
+        <li>Publicar fotos, videos y estadísticas en el sitio web y redes sociales de la Liga.</li>
+        <li>Enviarte información de eventos, convivencias y patrocinadores.</li>
+      </ul>
+
+      <h2 id="imagen">4. Uso de imagen</h2>
+      <p>
+        Solo publicaremos tu imagen si marcaste la autorización correspondiente en el registro. Puedes retirar esta
+        autorización en cualquier momento escribiendo a [correo de privacidad]; retiraremos el material bajo nuestro
+        control en un plazo de [X] días hábiles.
+      </p>
+
+      <h2 id="publicacion">5. Qué se publica y qué no</h2>
+      <ul>
+        <li><strong>Nunca se publican</strong> tu teléfono, correo, fecha de nacimiento ni tu contacto de emergencia.</li>
+        <li>Si elegiste <strong>perfil privado</strong>, en el sitio solo aparecerán tu número y posición, sin nombre ni foto.</li>
+        <li>Si elegiste <strong>perfil público</strong>, se mostrarán tu nombre, equipo, número, posición y estadísticas.</li>
+      </ul>
+
+      <h2 id="transferencias">6. Transferencias</h2>
+      <p>
+        No vendemos ni compartimos tus datos con patrocinadores. Solo podrán transferirse cuando la ley lo exija o a
+        servicios médicos en caso de emergencia. [Completar si aplica alguna otra transferencia.]
+      </p>
+
+      <h2 id="arco">7. Derechos ARCO</h2>
+      <p>
+        Tienes derecho a Acceder, Rectificar, Cancelar u Oponerte al tratamiento de tus datos. Envía tu solicitud a
+        [correo de privacidad] con tu nombre, una identificación y la descripción de lo que solicitas. Responderemos en
+        un máximo de 20 días hábiles.
+      </p>
+
+      <h2 id="revocacion">8. Revocación del consentimiento</h2>
+      <p>
+        Puedes revocar tu consentimiento para el tratamiento de tus datos siguiendo el mismo procedimiento de los
+        derechos ARCO. Ten en cuenta que, para algunas finalidades primarias, la revocación puede implicar que no
+        podamos mantener tu registro activo.
+      </p>
+
+      <h2 id="cambios">9. Cambios al aviso de privacidad</h2>
+      <p>
+        Cualquier cambio a este aviso se publicará en esta página. Te recomendamos revisarla periódicamente.
+      </p>
+    </article>
+  </div>
+</section>
